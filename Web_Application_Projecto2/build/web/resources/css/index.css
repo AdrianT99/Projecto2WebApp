@@ -1,0 +1,26 @@
+#principal
+{
+    margin: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-image:url("imagenes/header.jpg") !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+}
+
+#cuadro
+{
+    margin: 0 auto !important;
+    width: 40% !important;
+}
+
+#fondo
+{
+    margin: auto !important;
+    margin-top: 0px !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-image:url("imagenes/header.jpg") !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+}

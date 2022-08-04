@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Crear Cuenta</title>
+    </h:head>
+    <h:body id="FondoRegistro" >
+        <style type="text/css">
+            .label {
+                width: 20%;
+                padding: 4px;
+            }
+
+            .value {
+                width: 80%;
+                padding: 4px;
+            }
+
+            .grid {
+                width: 100%;
+            }
+
+            .error {
+                color: red;
+            }
+
+            .outputLabel {
+                font-weight: bold;
+            }
+
+            .grid {
+                width: 33%;
+                padding: 4px;
+            }
+            .registro
+            {
+                position: absolute;
+                margin-top: -10%;
+                width: 40%;
+                height: 30%;
+                left: 60%;
+                transform: translateX(-10%);
+                text-align: center;
+                float: left;
+            }
+            #carrusel
+            {
+                position: absolute;
+                width:130%;
+                height:325%;
+                margin-top: -34%;
+                margin-left: -139%;
+                background-color: #21212A;
+                float: left;
+            }
+            #FondoRegistro {
+                width: 95%;
+                height: 90vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-size: 300% 300%;
+                background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
+                -webkit-animation: AnimateBG 10s ease infinite;
+                animation: AnimateBG 10s ease infinite;
+            }
+
+            @-webkit-keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            @keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+            #slider
+            { 
+                position: absolute;
+                width:100%;
+                height:10%;
+                margin-top: 20%;
+                margin-left: 6%;
+            }
+
+        </style>
+
+        <h:form >
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+            <div class="registro">
+                <div id="carrusel">
+                    <div id="slider">
+
+                        <div class="slider">
+                            <p:galleria value="#{galleriaView.photos}" var="photo" numVisible="5" 
+                                        responsiveOptions="#{galleriaView.responsiveOptions1}"
+                                        circular="true" autoPlay="true" transitionInterval="2000" style="max-width: 720px;
+                                                                                                         margin-left: -4%;">
+                                <p:graphicImage name="#{photo.itemImageSrc}" alt="#{photo.alt}" style="width: 100%;
+                                                height: 100%;
+                                                                                                       display: block; 
+                                                                                                       text-align: left;
+                                                                                                       margin-top: " />
+                            </p:galleria>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p:wizard flowListener="#{UserWizardController.onFlowProcess}">
+                    <p:tab id="personal" title="Personal">
+                        <p:panel header="Datos Personales">
+                            <p:messages/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Nombre: "/>
+                                <p:inputText value="#{UserWizardController.clienteTO.nombreUsuario}" required="true" label="Nombre"/>
+
+                                <h:outputText value="Edad: "/>
+                                <p:inputText value="#{UserWizardController.clienteTO.edad}" required="true" label="Edad"/>
+
+                                <h:outputText value="Telefono: "/>
+                                <p:inputText value="#{UserWizardController.clienteTO.telefono}" required="true" label="Telefono"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="address" title="Cuenta">
+                        <p:panel header="Datos de la Cuenta">
+                            <p:messages/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Correo: "/>
+                                <p:inputText value="#{UserWizardController.clienteTO.user}" required="true" label="Correo"/>
+
+                                <h:outputText value="Contrasenna: "/>
+                                <p:inputText value="#{UserWizardController.clienteTO.password}" required="true" label="Contrasenna"/>
+
+                                <h:outputText value="Confirmar Contrasenna: "/>
+                                <p:inputText value="#{UserWizardController.clienteTO.confirmPassword}" required="true" label="Confirmar Contrasenna"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="confirm" title="Confirmar">
+                        <p:panel header="Confirmacion">
+                            <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Nombre: "/>
+                                    <h:outputText value="#{UserWizardController.clienteTO.nombreUsuario}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Edad: "/>
+                                    <h:outputText value="#{UserWizardController.clienteTO.edad}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Telefono: "/>
+                                    <h:outputText value="#{UserWizardController.clienteTO.telefono}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Correo: "/>
+                                    <h:outputText value="#{UserWizardController.clienteTO.user}" styleClass="outputLabel"/>
+                                </h:panelGrid>
+
+                            </h:panelGrid>
+
+                            <p:commandButton value="Crear Cuenta" action="#{UserWizardController.save()}" update="growl" process="@this"/>
+                        </p:panel>
+                    </p:tab>
+                </p:wizard>
+            </div>
+        </h:form>
+
+    </h:body>
+</html>
+
+
+
