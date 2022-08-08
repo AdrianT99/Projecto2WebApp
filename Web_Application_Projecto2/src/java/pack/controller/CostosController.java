@@ -39,6 +39,10 @@ public class CostosController implements Serializable {
         onAddNew();
 
     }
+    
+    public void openNew(){
+        
+    }
 
     public List<DetalleProductoTO> getdetalleProducto() {
         return detalleProducto;
@@ -76,6 +80,17 @@ public class CostosController implements Serializable {
         this.precioFinal = precioFinal;
     }
 
+    public int getPrecioSugerido() {
+        return precioSugerido;
+    }
+
+    public void setPrecioSugerido(int precioSugerido) {
+        this.precioSugerido = precioSugerido;
+    }
+    
+    
+    
+
     public void onRowEdit(RowEditEvent<DetalleProductoTO> event) {
 
         FacesMessage msg = new FacesMessage("Product Edited");
@@ -89,7 +104,7 @@ public class CostosController implements Serializable {
 
     public void onAddNew() {
         // Add one new product to the table:
-        this.selectedDetalle = new DetalleProductoTO();
+        selectedDetalle = new DetalleProductoTO();
         selectedDetalle.setCantidad(0);
         selectedDetalle.setCostoUnitario(0);
         selectedDetalle.setDescripcion("");
@@ -110,24 +125,25 @@ public class CostosController implements Serializable {
 
     public int sumaCostoTotal() {
 
-        int previousSize = detalleProducto.size() - 1;
-        int currentSize = detalleProducto.size();
-
         for (DetalleProductoTO selectedDetalle : this.detalleProducto) {
 
-            if (previousSize != currentSize) {
+            
                 temp = selectedDetalle.getTotal();
                 costoTotal += temp;
-            } else {
-                return costoTotal;
-            }
-        }
-        return costoTotal;
+            }  
+    return costoTotal;
     }
 
     public int calcularPrecioSugerido() {
-        precioSugerido = costoTotal * margen / 100 + costoTotal;
+       
+        
+        precioSugerido = costoTotal * margen/100 + costoTotal;
         return precioSugerido;
+    }
+    
+    
+    public void calcular() {
+        calcularPrecioSugerido();
     }
 
 }
