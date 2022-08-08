@@ -79,12 +79,7 @@ ServicioDashboard dash = new ServicioDashboard();
     }
     
     public void Ventas(){
-         this.redireccionar("/faces/PaginaCalculoCostos.xhtml");
-    }
-    
-    public void Ingresar(){
-         this.redireccionar("/faces/index.xhtml");
-        
+         this.redireccionar("/faces/PaginaCalculoCostos2.xhtml");
     }
     
      public void redireccionar(String ruta) {
