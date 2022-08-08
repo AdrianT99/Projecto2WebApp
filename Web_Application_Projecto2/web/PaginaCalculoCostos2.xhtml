@@ -78,7 +78,7 @@
             }
             #principal
             {
-                 position: relative;
+                position: relative;
                 margin-top: 40%;
             }
 
@@ -101,9 +101,9 @@
                                 <p:outputLabel for="@next" value="Tipo"/>
                                 <p:selectOneMenu id="option" value="#{selectOneMenuView.selectedOption}">
                                     <f:selectItem itemLabel="Select One" itemValue=""/>
-                                    <f:selectItem itemLabel="Option1" itemValue="Option1"/>
-                                    <f:selectItem itemLabel="Option2" itemValue="Option2"/>
-                                    <f:selectItem itemLabel="Option3" itemValue="Option3"/>
+                                    <f:selectItem itemLabel="U" itemValue="Option1"/>
+                                    <f:selectItem itemLabel="D" itemValue="Option2"/>
+                                    <f:selectItem itemLabel="T" itemValue="Option3"/>
                                 </p:selectOneMenu>
                             </h:form>
                         </div>
@@ -166,15 +166,59 @@
                         <p:column style="width:6rem">
                             <p:rowEditor/>
                         </p:column>
-                        <f:facet name="footer">
-                            <span class="font-bold">El Costo Total es de #{detalle.total} </span>
-                        </f:facet>
+                        
+                        
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column colspan="3" style="text-align:right" footerText="Costo Total:"/>
+                                <p:column>
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{CostosController.sumaCostoTotal()}">
+                                            <f:convertNumber type="currency" currencySymbol="$"/>
+                                        </h:outputText>
+                                    </f:facet>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="3" style="text-align:right" footerText="Margen:"/>
+                                <p:column>
+                                    <f:facet name="footer">
+                                        <h:inputText value="#{CostosController.margen}">
+                                           
+                                        </h:inputText>
+                                    </f:facet>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="3" style="text-align:right" footerText="Precio Sugerido:"/>
+                                <p:column>
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{CostosController.calcularPrecioSugerido()}">
+                                            <f:convertNumber type="currency" currencySymbol="$"/>
+                                        </h:outputText>
+                                    </f:facet>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="3" style="text-align:right" footerText="Precio Final:"/>
+                                <p:column>
+                                    <f:facet name="footer">
+                                        <h:inputText value="#{CostosController.precioFinal}">
+                                            <f:convertNumber type="currency" currencySymbol="$"/>
+                                        </h:inputText>
+                                    </f:facet>
+                                </p:column>
+                            </p:row>
+                        </p:columnGroup>
+                        
                     </p:dataTable>
 
                     <div class="grid mt-3">
                         <div class="col-12">
                             <p:commandButton value="Add new row" process="@this" update="form"
-                                             action="#{CostosController.onAddNew()}" actionListener="#{CostosController.calcularTotal()}" oncomplete="PF('detalleProducto').addRow();"/>
+                                             action="#{CostosController.onAddNew()}"  oncomplete="PF('detalleProducto').addRow();"/>
+                            <p:commandButton value="Calcular" process="@this" update="form" action="#{CostosController.calcularTotal()}" actionListener="#{CostosController.calcularPrecioSugerido()}"/>
+                          
                         </div>
                     </div>
 

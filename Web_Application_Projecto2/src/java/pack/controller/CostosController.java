@@ -1,4 +1,3 @@
-
 package pack.controller;
 
 import java.io.Serializable;
@@ -15,38 +14,35 @@ import pack.service.DetalleProductoTO;
 import pack.service.ProductoTO;
 import pack.service.ServicioDetalle;
 
-@ManagedBean(name ="CostosController")
+@ManagedBean(name = "CostosController")
 @ViewScoped
 public class CostosController implements Serializable {
-        
-     int costoTotal;
-     int temp;
-     DetalleProductoTO selectedDetalle;
-     
+
+    int costoTotal;
+    int margen;
+    int precioSugerido;
+    int precioFinal;
+    int temp;
+    DetalleProductoTO selectedDetalle;
 
     @ManagedProperty("#{detalleProducto}")
-   
+
     private List<DetalleProductoTO> detalleProducto;
 
     public CostosController() {
     }
-    
-    
 
     @PostConstruct
     public void init() {
-        
+
         this.detalleProducto = new ArrayList();
         onAddNew();
-        
+
     }
-    
 
     public List<DetalleProductoTO> getdetalleProducto() {
         return detalleProducto;
     }
-
-    
 
     public List<DetalleProductoTO> getDetalleProducto() {
         return detalleProducto;
@@ -56,13 +52,32 @@ public class CostosController implements Serializable {
         this.detalleProducto = detalleProducto;
     }
 
-    
-  
-    
+    public int getCostoTotal() {
+        return costoTotal;
+    }
+
+    public void setCostoTotal(int costoTotal) {
+        this.costoTotal = costoTotal;
+    }
+
+    public int getMargen() {
+        return margen;
+    }
+
+    public void setMargen(int margen) {
+        this.margen = margen;
+    }
+
+    public int getPrecioFinal() {
+        return precioFinal;
+    }
+
+    public void setPrecioFinal(int precioFinal) {
+        this.precioFinal = precioFinal;
+    }
 
     public void onRowEdit(RowEditEvent<DetalleProductoTO> event) {
-        
-        
+
         FacesMessage msg = new FacesMessage("Product Edited");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -80,28 +95,39 @@ public class CostosController implements Serializable {
         selectedDetalle.setDescripcion("");
         selectedDetalle.setTotal(0);
         detalleProducto.add(selectedDetalle);
-        System.out.println(detalleProducto.size());
+      
 
         FacesMessage msg = new FacesMessage("New Product added");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
-    
-    public void calcularTotal(){
-        
-        for(DetalleProductoTO selectedDetalle : this.detalleProducto) {
-        selectedDetalle.setTotal(selectedDetalle.getCantidad() * selectedDetalle.getCostoUnitario());
-        } 
-    }
-    
-    public void sumaCostoTal() {
-        
-        for(DetalleProductoTO selectedDetalle : this.detalleProducto) {
-            
-            temp = selectedDetalle.getTotal() + selectedDetalle.getTotal();
-            costoTotal += temp;
+
+    public void calcularTotal() {
+
+        for (DetalleProductoTO selectedDetalle : this.detalleProducto) {
+            selectedDetalle.setTotal(selectedDetalle.getCantidad() * selectedDetalle.getCostoUnitario());
         }
-        
     }
-    
+
+    public int sumaCostoTotal() {
+
+        int previousSize = detalleProducto.size() - 1;
+        int currentSize = detalleProducto.size();
+
+        for (DetalleProductoTO selectedDetalle : this.detalleProducto) {
+
+            if (previousSize != currentSize) {
+                temp = selectedDetalle.getTotal();
+                costoTotal += temp;
+            } else {
+                return costoTotal;
+            }
+        }
+        return costoTotal;
+    }
+
+    public int calcularPrecioSugerido() {
+        precioSugerido = costoTotal * margen / 100 + costoTotal;
+        return precioSugerido;
+    }
+
 }

@@ -3,17 +3,14 @@ package pack.service;
 
 import java.io.Serializable;
 
-/**
- *
- * @author adria
- */
+
 public class DetalleProductoTO implements Serializable{
     int idProducto;
     int cantidad;
     int costoUnitario;
     String descripcion;
     int total;
-
+    
     public DetalleProductoTO() {
     }
 
