@@ -51,7 +51,9 @@ public class ServicioProducto extends Servicio implements Serializable {
     }
 
     public List<ProductoTO> demeProductos() {
+        
         List<ProductoTO> listaRetorno = new ArrayList<>();
+        
         Connection conn = super.getConexion();
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -165,7 +167,5 @@ public class ServicioProducto extends Servicio implements Serializable {
     public List<ProductoTO> getProducts() {
         return products;
     }
-    
-    
 
 }

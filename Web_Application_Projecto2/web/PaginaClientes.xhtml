@@ -2,21 +2,126 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-       xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Clientes</title>
     </h:head>
-    <h:body>
-        <style type="text/css">
-    button.ui-button {
-        margin-right: .5rem;
-    }
-</style>
+    <h:body id="FondoClientes">
+        <style>
+            #FondoClientes {
+                width: 95%;
+                height: 90vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-size: 300% 300%;
+                background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
+                -webkit-animation: AnimateBG 10s ease infinite;
+                animation: AnimateBG 10s ease infinite;
+            }
 
-  <p:commandButton type="button" value="Catalogo"  actionListener="#{loginController.ingresar()}" styleClass="ui-button-raised ui-button-flat" />
-  <p:commandButton type="button" value="Ventas"  actionListener="#{loginController.ingresar()}" styleClass="ui-button-raised ui-button-flat" />
-  <p:commandButton type="button" value="Clientes"  actionListener="#{loginController.ingresar()}" styleClass="ui-button-raised ui-button-flat" />
-         
+            @-webkit-keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            @keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+            .panelClientes
+            {
+                position: absolute;
+                margin-top: -23%;
+                width: 98%;
+                height: 95%;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+                float: left;
+            }
+        </style>
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true"/>
+            <div class="panelClientes">
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <div id="botones" style="float: left;
+                                                margin: auto;
+                                                width: 100%;
+                                                height: 70px;">
+                            <div style="font-weight: bold;
+                                        position: absolute;
+                                        margin-top: 1.5%;
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        text-align: center;
+                                        float: left;
+                                        font-weight: 500;
+                                        ">CLIENTES</div> 
+                        </div>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{clienteService.clientes}"
+                             reflow="true" styleClass="products-table"
+                             rowKey="#{product.idUser}" paginator="true">
+                    <f:facet name="header">
+                    </f:facet>
+
+                    <p:column headerText="idUser" sortBy="#{products}" filterBy="#{product.idUser}" 
+                              filterMatchMode="contains" style="width: 8%;">
+                        <h:outputText value="#{product.idUser}" />
+                    </p:column>
+                    <p:column headerText="Nombre" sortBy="#{product.nombreUsuario}" 
+                              filterBy="#{product.nombreUsuario}"  filterMatchMode="contains" style="width: 12%;">
+                        <h:outputText value="#{product.nombreUsuario}"/>
+                    </p:column>
+
+                    <p:column headerText="Edad" style="width: 8%;">
+                        <h:outputText value="#{product.edad}" style="font-weight: 500">
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="Correo" style="width: 30%;">
+                        <h:outputText value="#{product.user}" style="font-weight: 500">
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="Telefono" style="width: 12%;">
+                        <h:outputText value="#{product.telefono}" style="font-weight: 500">
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <div id="botones" style="float: left;
+                                                margin: auto;
+                                                width: 100%;
+                                                height: 50px;">
+                        </div>
+                    </p:toolbarGroup>
+                </p:toolbar>
+            </div>
+        </h:form>
     </h:body>
 </html>
-

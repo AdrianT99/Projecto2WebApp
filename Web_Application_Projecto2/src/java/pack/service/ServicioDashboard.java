@@ -61,12 +61,12 @@ public class ServicioDashboard extends Servicio {
         try {
             //Paso 3 (Preparar)
             //super.conectar();
-            ps = conn.prepareStatement("select count(TipoUsuario) from `web-project02`.user where TipoUsuario = 2;");
+            ps = conn.prepareStatement("select count(TipoUsuario) as admins from `web-project02`.user where TipoUsuario = 0;");
             rs = ps.executeQuery();
 
             //Paso 4 (Ejectuar)
             while (rs.next()) {
-                CantUsuarios = rs.getInt("count(TipoUsuario)");
+                CantUsuarios = rs.getInt("admins");
 
             }
         } catch (Exception ex) {

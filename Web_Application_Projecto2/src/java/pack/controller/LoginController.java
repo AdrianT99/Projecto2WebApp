@@ -26,7 +26,7 @@ public class LoginController implements Serializable {
         ServicioCliente servicioCliente = new ServicioCliente();
         this.clienteTO = servicioCliente.demeCliente(user, pass);
         if (this.clienteTO != null) {
-            if(this.clienteTO.getTipoUsuario() == 2){
+            if(this.clienteTO.getTipoUsuario() == 0){
                 this.redireccionar("/faces/Dashboard.xhtml");
             }else{
                 

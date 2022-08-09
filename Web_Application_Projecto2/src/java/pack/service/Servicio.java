@@ -17,7 +17,7 @@ public class Servicio {
 
             try {
             //Paso 2 (Conectar)
-                this.conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/web-project02?zeroDateTimeBehavior=convertToNull", "root", "Galleta99");
+                this.conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/web-project02?zeroDateTimeBehavior=convertToNull", "root", "Db89602011");
 //                this.conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/web-project02?zeroDateTimeBehavior=convertToNull", "root", "Db89602011");
 
             } catch (SQLException ex) {
