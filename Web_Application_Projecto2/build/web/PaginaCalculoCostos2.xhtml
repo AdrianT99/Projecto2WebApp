@@ -81,6 +81,7 @@
                 position: relative;
                 margin-top: 40%;
             }
+            
 
         </style>
 
@@ -167,7 +168,7 @@
                             <p:rowEditor/>
                         </p:column>
                         
-                        
+                        <div id="calculos">
                         <p:columnGroup type="footer">
                             <p:row>
                                 <p:column colspan="3" style="text-align:right" footerText="Costo Total:"/>
@@ -210,6 +211,7 @@
                                 </p:column>
                             </p:row>
                         </p:columnGroup>
+                        </div>
                         
                     </p:dataTable>
 
@@ -217,7 +219,8 @@
                         <div class="col-12">
                             <p:commandButton value="Add new row" process="@this" update="form"
                                              action="#{CostosController.onAddNew()}"  oncomplete="PF('detalleProducto').addRow();"/>
-                            <p:commandButton value="Calcular" process="@this" update="form" action="#{CostosController.calcularTotal()}" actionListener="#{CostosController.calcularPrecioSugerido()}"/>
+                            <p:commandButton value="Calcular" process="@this" update="form" action="#{CostosController.calcularTotal()}" 
+                                             actionListener="#{CostosController.calcularPrecioSugerido()}"/>
                           
                         </div>
                     </div>

@@ -11,8 +11,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 import pack.service.DetalleProductoTO;
-import pack.service.ProductoTO;
-import pack.service.ServicioDetalle;
 
 @ManagedBean(name = "CostosController")
 @ViewScoped
@@ -126,6 +124,7 @@ public class CostosController implements Serializable {
     }
 
     public int calcularPrecioSugerido() {
+        
         precioSugerido = costoTotal * margen / 100 + costoTotal;
         return precioSugerido;
     }
