@@ -11,8 +11,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 import pack.service.DetalleProductoTO;
-import pack.service.ProductoTO;
-import pack.service.ServicioDetalle;
 
 @ManagedBean(name = "CostosController")
 @ViewScoped
@@ -32,17 +30,21 @@ public class CostosController implements Serializable {
     public CostosController() {
     }
 
+    public CostosController(int costoTotal, int margen, int precioSugerido, int precioFinal) {
+        this.costoTotal = costoTotal;
+        this.margen = margen;
+        this.precioSugerido = precioSugerido;
+        this.precioFinal = precioFinal;
+    }
+
     @PostConstruct
     public void init() {
 
-        this.detalleProducto = new ArrayList();
-        onAddNew();
-
+        detalleProducto = new ArrayList();
+      
     }
     
-    public void openNew(){
-        
-    }
+   
 
     public List<DetalleProductoTO> getdetalleProducto() {
         return detalleProducto;
@@ -87,14 +89,16 @@ public class CostosController implements Serializable {
     public void setPrecioSugerido(int precioSugerido) {
         this.precioSugerido = precioSugerido;
     }
-    
-    
-    
 
     public void onRowEdit(RowEditEvent<DetalleProductoTO> event) {
 
+        System.out.println(this.detalleProducto.size());
+        DetalleProductoTO prodEdit = event.getObject();
+        prodEdit.setTotal(prodEdit.getCantidad() * prodEdit.getCostoUnitario());
+        this.sumaCostoTotal();
         FacesMessage msg = new FacesMessage("Product Edited");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+   
     }
 
     public void onRowCancel(RowEditEvent<DetalleProductoTO> event) {
@@ -103,14 +107,9 @@ public class CostosController implements Serializable {
     }
 
     public void onAddNew() {
-        // Add one new product to the table:
-        selectedDetalle = new DetalleProductoTO();
-        selectedDetalle.setCantidad(0);
-        selectedDetalle.setCostoUnitario(0);
-        selectedDetalle.setDescripcion("");
-        selectedDetalle.setTotal(0);
+        
+        selectedDetalle = new DetalleProductoTO(0, 0, "", 0);
         detalleProducto.add(selectedDetalle);
-      
 
         FacesMessage msg = new FacesMessage("New Product added");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -125,25 +124,19 @@ public class CostosController implements Serializable {
 
     public int sumaCostoTotal() {
 
+        costoTotal = 0;
+
         for (DetalleProductoTO selectedDetalle : this.detalleProducto) {
 
-            
-                temp = selectedDetalle.getTotal();
-                costoTotal += temp;
-            }  
-    return costoTotal;
+            temp = selectedDetalle.getTotal();
+            costoTotal += temp;
+        }
+        return costoTotal;
     }
 
-    public int calcularPrecioSugerido() {
-       
-        
-        precioSugerido = costoTotal * margen/100 + costoTotal;
-        return precioSugerido;
-    }
-    
-    
-    public void calcular() {
-        calcularPrecioSugerido();
+    public void calcularPrecioSugerido() {
+
+        this.precioSugerido = costoTotal * margen / 100 + costoTotal;
     }
 
 }

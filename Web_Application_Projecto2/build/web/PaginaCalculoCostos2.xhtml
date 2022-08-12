@@ -81,7 +81,7 @@
                 position: relative;
                 margin-top: 40%;
             }
-            
+
 
         </style>
 
@@ -90,7 +90,7 @@
 
         <div id="pricipal">
             <div id="panel1" class="p-field p-grid">
-                <h:form>
+                <h:form id="form1">
                     <p:panelGrid class = "login" columns="1">
                         Codigo: <p:inputText  style="margin: auto;
                                               padding-top: -3px;
@@ -98,7 +98,7 @@
                                               height: 30px;"/>    
 
                         <div class="p-field p-col-12 p-md-4">
-                            <h:form>
+                            <h:form id="form2">
                                 <p:outputLabel for="@next" value="Tipo"/>
                                 <p:selectOneMenu id="option" value="#{selectOneMenuView.selectedOption}">
                                     <f:selectItem itemLabel="Select One" itemValue=""/>
@@ -128,7 +128,7 @@
                                  editable="true">
 
 
-                        <p:ajax event="rowEdit" listener="#{CostosController.onRowEdit}" update=":form:msgs"/>
+                        <p:ajax event="rowEdit" listener="#{CostosController.onRowEdit}" update=":form:costoTemp"/>
                         <p:ajax event="rowEditCancel" listener="#{CostosController.onRowCancel}" update=":form:msgs"/>
 
                         <p:column headerText="Cantidad">
@@ -167,61 +167,40 @@
                         <p:column style="width:6rem">
                             <p:rowEditor/>
                         </p:column>
-                        
-                        <div id="calculos">
-                        <p:columnGroup type="footer">
-                            <p:row>
-                                <p:column colspan="3" style="text-align:right" footerText="Costo Total:"/>
-                                <p:column>
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{CostosController.sumaCostoTotal()}">
-                                            <f:convertNumber type="currency" currencySymbol="$"/>
-                                        </h:outputText>
-                                    </f:facet>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="3" style="text-align:right" footerText="Margen:"/>
-                                <p:column>
-                                    <f:facet name="footer">
-                                        <h:inputText value="#{CostosController.margen}">
-                                           
-                                        </h:inputText>
-                                    </f:facet>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="3" style="text-align:right" footerText="Precio Sugerido:"/>
-                                <p:column>
-                                    <f:facet name="footer">
-                                        <h:outputText value="#{CostosController.calcularPrecioSugerido()}">
-                                            <f:convertNumber type="currency" currencySymbol="$"/>
-                                        </h:outputText>
-                                    </f:facet>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="3" style="text-align:right" footerText="Precio Final:"/>
-                                <p:column>
-                                    <f:facet name="footer">
-                                        <h:inputText value="#{CostosController.precioFinal}">
-                                            <f:convertNumber type="currency" currencySymbol="$"/>
-                                        </h:inputText>
-                                    </f:facet>
-                                </p:column>
-                            </p:row>
-                        </p:columnGroup>
-                        </div>
-                        
+
+
+
                     </p:dataTable>
 
+                    <div>
+                        <h:panelGrid columns="2" cellpadding="7" id="costoTemp">
+                            <h:outputText value="Costo Total"/>
+                        <h:outputLabel value="#{CostosController.costoTotal}">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputLabel>
+                            
+                        <h:outputText value="Margen"/>
+                        <h:inputText value="#{CostosController.margen}"/>
+                          
+                          <h:outputText value="Precio Sugerido"/>
+                          <h:outputLabel value="#{CostosController.precioSugerido}">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputLabel>
+                          
+                      <h:outputText value="Precio Final"/>
+                      <h:inputText value="#{CostosController.precioFinal}">
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:inputText>
+                    </h:panelGrid>
+                    </div>
                     <div class="grid mt-3">
-                        <div class="col-12">
+                        <div class="col-12" >
+
                             <p:commandButton value="Add new row" process="@this" update="form"
                                              action="#{CostosController.onAddNew()}"  oncomplete="PF('detalleProducto').addRow();"/>
                             <p:commandButton value="Calcular" process="@this" update="form" action="#{CostosController.calcularTotal()}" 
                                              actionListener="#{CostosController.calcularPrecioSugerido()}"/>
-                          
+
                         </div>
                     </div>
 
