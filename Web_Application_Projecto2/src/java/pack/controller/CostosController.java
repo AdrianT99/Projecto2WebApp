@@ -11,6 +11,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 import pack.service.DetalleProductoTO;
+import pack.service.ProductoTO;
+import pack.service.ServicioDetalle;
+import pack.service.ServicioProducto;
 
 @ManagedBean(name = "CostosController")
 @ViewScoped
@@ -21,6 +24,11 @@ public class CostosController implements Serializable {
     int precioSugerido;
     int precioFinal;
     int temp;
+    String tipo;
+    ProductoTO productoTO = new ProductoTO();
+    DetalleProductoTO detalleProductoTO = new DetalleProductoTO();
+    ServicioProducto sp = new ServicioProducto();
+    ServicioDetalle sd =  new ServicioDetalle();
     DetalleProductoTO selectedDetalle;
 
     @ManagedProperty("#{detalleProducto}")
@@ -40,12 +48,9 @@ public class CostosController implements Serializable {
     @PostConstruct
     public void init() {
 
-        detalleProducto = new ArrayList();
-      
+        detalleProducto = new ArrayList();   
     }
-    
-   
-
+ 
     public List<DetalleProductoTO> getdetalleProducto() {
         return detalleProducto;
     }
@@ -90,6 +95,14 @@ public class CostosController implements Serializable {
         this.precioSugerido = precioSugerido;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public void onRowEdit(RowEditEvent<DetalleProductoTO> event) {
 
         System.out.println(this.detalleProducto.size());
@@ -115,13 +128,6 @@ public class CostosController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void calcularTotal() {
-
-        for (DetalleProductoTO selectedDetalle : this.detalleProducto) {
-            selectedDetalle.setTotal(selectedDetalle.getCantidad() * selectedDetalle.getCostoUnitario());
-        }
-    }
-
     public int sumaCostoTotal() {
 
         costoTotal = 0;
@@ -136,7 +142,62 @@ public class CostosController implements Serializable {
 
     public void calcularPrecioSugerido() {
 
-        this.precioSugerido = costoTotal * margen / 100 + costoTotal;
+        this.precioSugerido = ((costoTotal * margen) / 100) + costoTotal;
     }
+
+    public int getTemp() {
+        return temp;
+    }
+
+    public void setTemp(int temp) {
+        this.temp = temp;
+    }
+
+    public ProductoTO getProductoTO() {
+        return productoTO;
+    }
+
+    public void setProductoTO(ProductoTO productoTO) {
+        
+        this.productoTO = productoTO;
+    }
+
+    public void insertarProducto()
+    {
+        productoTO = new ProductoTO();
+        productoTO.setPrecioVenta(precioFinal);
+        productoTO.setCostoTotal(costoTotal);
+        productoTO.setTipo(tipo);
+        setProductoTO(productoTO);
+        
+        sp.insertarProducto(productoTO);
+        insertarDetalles();
+    }
+    
+    public void insertarDetalles()
+    {
+        int idPro=sp.demeIdProducto();
+        for(DetalleProductoTO dp : this.detalleProducto)
+        {
+            detalleProductoTO.setIdProducto(idPro);
+            detalleProductoTO.setCantidad(detalleProductoTO.getCantidad());
+            detalleProductoTO.setDescripcion(detalleProductoTO.getDescripcion());
+            detalleProductoTO.setCostoUnitario(detalleProductoTO.getCostoUnitario());
+            detalleProductoTO.setTotal(detalleProductoTO.getTotal());
+            this.detalleProductoTO = selectedDetalle;
+            sd.insertarDetalle(detalleProductoTO);
+        }
+        
+    }
+    
+    public DetalleProductoTO getSelectedDetalle() {
+        return selectedDetalle;
+    }
+
+    public void setSelectedDetalle(DetalleProductoTO selectedDetalle) {
+        this.selectedDetalle = selectedDetalle;
+    }
+    
+    
 
 }

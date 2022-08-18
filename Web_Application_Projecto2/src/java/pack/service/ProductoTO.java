@@ -8,21 +8,35 @@ public class ProductoTO implements Serializable {
     
     int idProducto;
     String nombreProducto;
-    int precio;
+    double precioVenta;
     String imagen;
+    double costoTotal;
+    String tipo;
+    
    
     public ProductoTO() {
    
     }
 
-    public ProductoTO(int idProducto, String nombreProducto, int precio) {
+    public ProductoTO(int idProducto, String nombreProducto, double precioVenta, String imagen, double costoTotal, String tipo) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
-        this.precio = precio;
+        this.precioVenta = precioVenta;
+        this.imagen = imagen;
+        this.costoTotal = costoTotal;
+        this.tipo = tipo;
     }
+
     
-    
-       
+
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
+    }
+
     public String getNombreProducto() {
         return nombreProducto;
     }
@@ -31,20 +45,12 @@ public class ProductoTO implements Serializable {
         this.nombreProducto = nombreProducto;
     }
 
-    public int getPrecio() {
-        return precio;
+    public double getPrecioVenta() {
+        return precioVenta;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
+    public void setPrecioVenta(double precioVenta) {
+        this.precioVenta = precioVenta;
     }
 
     public String getImagen() {
@@ -55,7 +61,21 @@ public class ProductoTO implements Serializable {
         this.imagen = imagen;
     }
 
-    
-    
-    
+    public double getCostoTotal() {
+        return costoTotal;
+    }
+
+    public void setCostoTotal(double costoTotal) {
+        this.costoTotal = costoTotal;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+   
 }

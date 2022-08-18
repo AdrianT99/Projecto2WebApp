@@ -26,9 +26,11 @@ public class ServicioProducto extends Servicio implements Serializable {
 
         try {
             Connection conn = super.getConexion();
-            ps = conn.prepareStatement("INSERT INTO PRODUCTOS(NOMBRE, PRECIO) VALUES(?,?)");
+            ps = conn.prepareStatement("INSERT INTO PRODUCTO(NOMBRE, PRECIOVENTA, COSTOTOTAL, TIPO) VALUES(?,?,?,?)");
             ps.setString(1, productoTO.getNombreProducto());
-            ps.setInt(2, productoTO.getPrecio());
+            ps.setDouble(2, productoTO.getPrecioVenta());
+            ps.setDouble(3, productoTO.getCostoTotal());
+            ps.setString(4, productoTO.getTipo());
             ps.execute();
 
         } catch (Exception ex) {
@@ -61,22 +63,25 @@ public class ServicioProducto extends Servicio implements Serializable {
         try {
             //Paso 3 (Preparar)
             //super.conectar();
-            ps = conn.prepareStatement("SELECT IDPRODUCTOS,DESCRIPCION,PRECIO,IMAGEN FROM PRODUCTOS");
+            ps = conn.prepareStatement("SELECT IDPRODUCTO,NOMBRE,PRECIOVENTA,IMAGEN, COSTOTOTAL, TIPO FROM PRODUCTO");
             rs = ps.executeQuery();
 
             //Paso 4 (Ejectuar)
             while (rs.next()) {
 
-                int idProducto = rs.getInt("IDPRODUCTOS");
-                String descripcion = rs.getString("DESCRIPCION");
-                int precio = rs.getInt("PRECIO");
+                int idProducto = rs.getInt("IDPRODUCTO");
+                String nombreProducto = rs.getString("NOMBRE");
+                double precioVenta = rs.getInt("PRECIOVENTA");
                 String imagen = rs.getString("IMAGEN");
+                double costoTotal = rs.getInt("COSTOTOTAL");
+                String tipo = rs.getString("TIPO");
 
                 ProductoTO productoTO = new ProductoTO();
                 productoTO.setIdProducto(idProducto);
-                productoTO.setNombreProducto(descripcion);
-                productoTO.setPrecio(precio);
+                productoTO.setNombreProducto(nombreProducto);
+                productoTO.setPrecioVenta(precioVenta);
                 productoTO.setImagen(imagen);
+                productoTO.setTipo(tipo);
 
                 listaRetorno.add(productoTO);
 
@@ -111,7 +116,7 @@ public class ServicioProducto extends Servicio implements Serializable {
 
         try {
 
-            ps = conn.prepareStatement("SELECT MAX(idProducto) as max_producto FROM chiquitinas.productos");
+            ps = conn.prepareStatement("SELECT MAX(idProducto) as max_producto FROM producto");
             rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -146,7 +151,7 @@ public class ServicioProducto extends Servicio implements Serializable {
 
         try {
 
-            ps = conn.prepareStatement("DELETE FROM PRODUCTOS WHERE ID = ?");
+            ps = conn.prepareStatement("DELETE FROM PRODUCTOS WHERE IDPRODUCTO = ?");
             ps.setInt(1, numeroParam);
             ps.execute();
 

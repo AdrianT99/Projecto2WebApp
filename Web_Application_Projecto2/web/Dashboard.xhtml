@@ -6,70 +6,70 @@
       >
     <h:head>
         <title>Dashboard</title>
+        <style type="text/css">
+            button.ui-button {
+                margin-right: .700rem;
+
+            }
+
+            html,
+            body { height: 100%;
+            }
+            .parent {
+                height: 60px;
+                display: flex;
+                align-items: baseline;
+                justify-content: flex-start;
+                padding-top: 40px;
+                margin-bottom: 40px            }
+
+            this_form{
+                justify-content: flex-start;
+            }
+
+            Head{
+
+                margin: 50px;
+            }
+            #FondoDashboard {
+                width: 95%;
+                height: 90vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-size: 300% 300%;
+                background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
+                -webkit-animation: AnimateBG 10s ease infinite;
+                animation: AnimateBG 10s ease infinite;
+            }
+
+            @-webkit-keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            @keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+        </style>
     </h:head>
 
-    <style type="text/css">
-        button.ui-button {
-            margin-right: .700rem;
-
-        }
-
-        html,
-        body { height: 100%;
-        }
-        .parent {
-            height: 60px;
-            display: flex;
-            align-items: baseline;
-            justify-content: flex-start;
-            padding-top: 40px;
-            margin-bottom: 40px            }
-
-        this_form{
-            justify-content: flex-start;
-        }
-
-        Head{
-
-            margin: 50px;
-        }
-        #FondoDashboard {
-            width: 95%;
-            height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-size: 300% 300%;
-            background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
-            -webkit-animation: AnimateBG 10s ease infinite;
-            animation: AnimateBG 10s ease infinite;
-        }
-
-        @-webkit-keyframes AnimateBG {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        @keyframes AnimateBG {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-    </style>
     <h:form>
         <p:growl id="message" showDetail="true"/>
         <div class="mb-3">
@@ -80,29 +80,20 @@
         </div>
 
         <div class="px-4">
-            
+
             <div class="flex align-items-start flex-column lg:justify-content-between lg:flex-row">
                 <div>
-                    <div class="font-medium text-3xl text-900">#{loginController.clienteTO.user}</div>
+                    <div class="font-medium text-3xl text-900" style ="color: white;">#{loginController.clienteTO.user}</div>
                     <div class="flex align-items-center text-700 flex-wrap">
                         <div class="mr-5 flex align-items-center mt-3">
-                            <i class="pi pi-clock mr-2"/>
-                            <span>#{DashboardController.hora}</span>
+                            <i class="pi pi-clock mr-2" style ="color: white;"/>
+                            <span style ="color: white;">#{DashboardController.hora}</span>
 
                         </div>
-
-                        <!--                        <div class="mr-5 flex align-items-center mt-3">
-                                                    <i class="pi pi- mr-2"/>
-                                                    <span>9402 Sessions</span>
-                                                </div>
-                                                <div class="flex align-items-center mt-3">
-                                                    <i class="pi pi-clock mr-2"/>
-                                                    <span>2.32m Avg. Duration</span>
-                                                </div>-->
                     </div>
                     <div class="parent grid">
 
-                        <p:commandButton value="Ventas" actionListener="#{DashboardController.Ventas()}" styleClass="ui-button-raised col" />
+                        <p:commandButton value="Costos" actionListener="#{DashboardController.Ventas()}" styleClass="ui-button-raised col" />
                         <p:commandButton value="Clientes" actionListener="#{DashboardController.Clientes()}" styleClass="ui-button-raised col"/>
                         <p:commandButton value="Catalogo" actionListener="#{DashboardController.Catalogo()}" styleClass="ui-button-raised col" />
 
@@ -121,66 +112,23 @@
             <div class="grid p-4">
                 <div class="col-12 md:col-6 lg:col-3">
                     <div class="surface-card shadow-2 p-3 border-round">
-                        <div class="flex justify-content-between mb-3">
-                            <div>
-                                <span class="block text-500 font-medium mb-3">Usuarios</span>
-                                <div class="text-900 font-medium text-xl">#{DashboardController.usuarios} usuarios registrados</div>
-                            </div>
-                            <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
-                                 style="width:2.5rem;height:2.5rem">
-                                <i class="pi pi-users text-blue-500 text-xl"/>
-                            </div>
+                        <div style ="color: white;">
+
+                            <span class="block text-500 font-medium mb-3" style ="color: white;">Usuarios</span>
+                            <div class="text-900 font-medium text-xl">#{DashboardController.usuarios} usuarios registrados</div>
                         </div>
-                        <span class="text-500 ">#{DashboardController.usuariosAdmin} Usuarios Administradores</span>
+                        <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+                             style="width:2.5rem;height:2.5rem; color: white;">
+                            <i class="pi pi-users text-blue-500 text-xl"/>
+                        </div>
+                        <span class="text-500 " style ="color: white;">#{DashboardController.usuariosAdmin} Usuarios Administradores</span>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-3">
-                    <div class="surface-card shadow-2 p-3 border-round">
-                        <div class="flex justify-content-between mb-3">
-                            <div>
-                                <span class="block text-500 font-medium mb-3">Notificaciones</span>
-                                <div class="text-900 font-medium text-xl">this</div>
-                            </div>
-                            <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
-                                 style="width:2.5rem;height:2.5rem">
-                                <i class="pi pi-bell text-orange-500 text-xl"/>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    <span class="block text-500 font-medium mb-3" style ="color: white;">Notificaciones</span>
+                    <div class="text-900 font-medium text-xl" style ="color: white;">this</div>
                 </div>
 
-                <!--            <div class="col-12 md:col-6 lg:col-3">
-                                <div class="surface-card shadow-2 p-3 border-round">
-                                    <div class="flex justify-content-between mb-3">
-                                        <div>
-                                            <span class="block text-500 font-medium mb-3">this</span>
-                                            <div class="text-900 font-medium text-xl">this</div>
-                                        </div>
-                                        <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
-                                             style="width:2.5rem;height:2.5rem">
-                                            <i class="pi pi-inbox text-cyan-500 text-xl"/>
-                                        </div>
-                                    </div>
-                                    <span class="text-green-500 font-medium">this  </span>
-                                    <span class="text-500">this</span>
-                                </div>
-                            </div>-->
-                <!--            <div class="col-12 md:col-6 lg:col-3">
-                                <div class="surface-card shadow-2 p-3 border-round">
-                                    <div class="flex justify-content-between mb-3">
-                                        <div>
-                                            <span class="block text-500 font-medium mb-3">this</span>
-                                            <div class="text-900 font-medium text-xl">this</div>
-                                        </div>
-                                        <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
-                                             style="width:2.5rem;height:2.5rem">
-                                            <i class="pi pi-comment text-purple-500 text-xl"/>
-                                        </div>
-                                    </div>
-                                    <span class="text-green-500 font-medium">this </span>
-                                    <span class="text-500">this</span>
-                                </div>
-                            </div>-->
             </div>
         </h:form>
     </body>

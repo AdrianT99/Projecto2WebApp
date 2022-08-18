@@ -106,8 +106,8 @@
                         <h:outputText value="#{product.nombreProducto}"/>
                     </p:column>
 
-                    <p:column headerText="Price" sortBy="#{product.precio}"  filterBy="#{product.precio}"  filterMatchMode="contains">
-                        <h:outputText value="#{product.precio}" style="font-weight: 700">
+                    <p:column headerText="Price" sortBy="#{product.precioVenta}"  filterBy="#{product.precioVenta}"  filterMatchMode="contains">
+                        <h:outputText value="#{product.precioVenta}" style="font-weight: 700">
                             <f:convertNumber currencySymbol="$" type="currency"/>
                         </h:outputText>
                     </p:column>

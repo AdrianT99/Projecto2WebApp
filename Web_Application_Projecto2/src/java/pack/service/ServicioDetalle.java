@@ -18,11 +18,12 @@ public class ServicioDetalle extends Servicio implements Serializable{
 
         try {
             Connection conn = super.getConexion();
-            ps = conn.prepareStatement("INSERT INTO DETALLEPRODUCTO(CANTIDAD,DESCRIPCION,COSTOUNITARIO,TOTAL) VALUES(?,?,?,?)");
-            ps.setInt(1, detalleProductoTO.getCantidad());
-            ps.setString(2, detalleProductoTO.getDescripcion());
-            ps.setInt(3, detalleProductoTO.getCostoUnitario());
-            ps.setInt(4, detalleProductoTO.getTotal());
+            ps = conn.prepareStatement("INSERT INTO DETALLEPRODUCTO(IDPRODUCTO,CANTIDAD,DESCRIPCION,COSTOUNITARIO,TOTAL) VALUES(?,?,?,?,?)");
+            ps.setInt(1, detalleProductoTO.getIdProducto());
+            ps.setInt(2, detalleProductoTO.getCantidad());
+            ps.setString(3, detalleProductoTO.getDescripcion());
+            ps.setInt(4, detalleProductoTO.getCostoUnitario());
+            ps.setInt(5, detalleProductoTO.getTotal());
             ps.execute();
 
         } catch (Exception ex) {
