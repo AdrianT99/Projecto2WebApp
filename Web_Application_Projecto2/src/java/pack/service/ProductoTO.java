@@ -12,23 +12,23 @@ public class ProductoTO implements Serializable {
     String imagen;
     double costoTotal;
     String tipo;
+    String descripcion;
     
    
     public ProductoTO() {
    
     }
 
-    public ProductoTO(int idProducto, String nombreProducto, double precioVenta, String imagen, double costoTotal, String tipo) {
+    public ProductoTO(int idProducto, String nombreProducto, double precioVenta, String imagen, double costoTotal, String tipo, String descripcion) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.precioVenta = precioVenta;
         this.imagen = imagen;
         this.costoTotal = costoTotal;
         this.tipo = tipo;
+        this.descripcion = descripcion;
     }
-
     
-
     public int getIdProducto() {
         return idProducto;
     }
@@ -75,6 +75,14 @@ public class ProductoTO implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
    

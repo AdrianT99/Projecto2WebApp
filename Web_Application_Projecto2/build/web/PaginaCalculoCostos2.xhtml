@@ -107,15 +107,6 @@
                                                           style="margin: auto;
                                                           width: 60%;
                                                           height: 150px;"/>
-                            <div id="botonesCalculos" style="float: left;
-                                                margin: auto;">
-                            <p:commandButton value="Add new row" process="@this" update="form"
-                                         action="#{CostosController.onAddNew()}"  
-                                         oncomplete="PF('detalleProducto').addRow();"/>
-                        <p:commandButton value="Calcular" process="@this" update="form" 
-                                         action="#{CostosController.calcularPrecioSugerido()}" 
-                                         actionListener="#{CostosController.calcularPrecioSugerido()}"/>
-                            </div>
                         </div>
                     </p:panelGrid> 
 
