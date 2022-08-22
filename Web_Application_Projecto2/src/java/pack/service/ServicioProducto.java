@@ -26,11 +26,12 @@ public class ServicioProducto extends Servicio implements Serializable {
 
         try {
             Connection conn = super.getConexion();
-            ps = conn.prepareStatement("INSERT INTO PRODUCTO(NOMBRE, PRECIOVENTA, COSTOTOTAL, TIPO) VALUES(?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO PRODUCTO(NOMBRE, PRECIOVENTA, COSTOTOTAL, TIPO, DESCRIPCION) VALUES(?,?,?,?,?)");
             ps.setString(1, productoTO.getNombreProducto());
             ps.setDouble(2, productoTO.getPrecioVenta());
             ps.setDouble(3, productoTO.getCostoTotal());
             ps.setString(4, productoTO.getTipo());
+            ps.setString(5, productoTO.getDescripcion());
             ps.execute();
 
         } catch (Exception ex) {
