@@ -30,7 +30,7 @@ public class LoginController implements Serializable {
                 this.redireccionar("/faces/Dashboard.xhtml");
             }else{
                 
-            this.redireccionar("/faces/PaginaProductos.xhtml");
+            this.redireccionar("/faces/PaginaProductosCX.xhtml");
             }
         } else {
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_WARN, "Campos invalidos", "El usuario o contrasena no son correctos"));

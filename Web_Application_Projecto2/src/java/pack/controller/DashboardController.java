@@ -82,6 +82,14 @@ ServicioDashboard dash = new ServicioDashboard();
          this.redireccionar("/faces/costosCasiSinErrores.xhtml");
     }
     
+    public void Carrito(){
+         this.redireccionar("/faces/Carrito.xhtml");
+    }
+    
+    public void CheckOut(){
+         this.redireccionar("/faces/Checkout.xhtml");
+    }
+    
      public void redireccionar(String ruta) {
 
         HttpServletRequest request;

@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Carrito</title>
+    </h:head>
+    <h:body id="FondoCatalogo">
+        <style>
+            #FondoCatalogo {
+                width: 95%;
+                height: 90vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-size: 300% 300%;
+                background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
+                -webkit-animation: AnimateBG 10s ease infinite;
+                animation: AnimateBG 10s ease infinite;
+            }
+
+            @-webkit-keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            @keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+            .panelProductos
+            {
+                position: absolute;
+                margin-top: -23%;
+                width: 98%;
+                height: 95%;
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+                float: left;
+            }
+        </style>
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true"/>
+            <div class="panelProductos">
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <div id="botones" style="float: left;
+                             margin: auto;
+                             width: 100%;
+                             height: 60px;">
+                            
+                            <p:commandButton value="Checkout" icon="pi pi-shopping-cart" actionListener="#{DashboardController.checkOut()}"
+                                             update=":form" oncomplete="PF('manageProductDialog').show()"
+                                             styleClass="ui-button-success"
+                                             style="float: left;
+                                             margin: auto;
+                                             margin-top: 5px;
+                                             width: 200px;
+                                             height: 50px;">
+                                <p:resetInput target=":form:manage-product-content"/>
+                            </p:commandButton>
+                            
+                        </div>
+                    </p:toolbarGroup>
+                </p:toolbar>
+                <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{productService.cart}"
+                             reflow="true" styleClass="products-table"
+                             rowKey="#{product.nombreProducto}" paginator="true"
+                             rows="10" rowSelectMode="add" paginatorPosition="bottom" emptyMessage="No hay productos en su carrito">
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span style="font-weight: bold">CARRITO</span>                     
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="imagen" sortBy="#{product}" filterBy="#{product.imagen}" filterMatchMode="contains">
+                        <h:outputText value="#{product.imagen}"/>
+                    </p:column>
+
+                    <p:column headerText="Name" sortBy="#{product.nombreProducto}" filterBy="#{product.nombreProducto}"  filterMatchMode="contains">
+                        <h:outputText value="#{product.nombreProducto}"/>
+                    </p:column>
+
+                    <p:column headerText="Descripcion" sortBy="#{products}" filterBy="#{product.descripcion}" filterMatchMode="contains">
+                        <h:outputText value="#{product.descripcion}"/>
+                    </p:column>
+
+                    <p:column headerText="Precio" sortBy="#{product.precioVenta}"  filterBy="#{product.precioVenta}"  filterMatchMode="contains">
+                        <h:outputText value="#{product.precioVenta}" style="font-weight: 700">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+
+                        <p:panelGrid columns="2" layout="grid" style="border:0px none;background:none; text-align: center">
+
+                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                             oncomplete="PF('deleteProductDialog').show()">
+                                <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
+                            </p:commandButton>
+                        </p:panelGrid>
+                    </p:column>
+                    
+                                <p:columnGroup type="footer">
+                <p:row>
+                    <p:column colspan="3" style="text-align:right" footerText="Totals:"/>
+                    <p:column>
+                        <f:facet name="footer">
+                            <h:outputText value="#{productService.sumaCostoTotal()}">
+                              <f:convertNumber type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </f:facet>
+                    </p:column>
+                    
+                </p:row>
+            </p:columnGroup>
+
+                </p:dataTable>
+                
+                
+
+                <p:dialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+                          header="Desea elminar el producto de su carrito?">
+                    <p:commandButton value="Si" icon="pi pi-check" actionListener="#{crudView.deleteProductsCart()}"
+                                     process="@this" update="form" oncomplete="PF('deleteProductDialog').hide()" />
+
+                </p:dialog>
+
+
+            </div>
+        </h:form>
+    </h:body>
+</html>

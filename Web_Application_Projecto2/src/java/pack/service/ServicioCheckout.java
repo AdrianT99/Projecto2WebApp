@@ -9,11 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
-import pack.controller.VentasTO;
 
 /**
  *
@@ -43,7 +40,7 @@ public class ServicioCheckout extends Servicio {
                 VentasTO ventasTO = new VentasTO();
                 ventasTO.setIdVenta(idVenta);
                 ventasTO.setFecha(fecha);
-                ventasTO.setMonto(monto);
+                ventasTO.setTotalPagar(monto);
                 ventasTO.setUser(idVenta);
 
                 listaRetorno.add(ventasTO);
@@ -70,16 +67,65 @@ public class ServicioCheckout extends Servicio {
         return listaRetorno;
 
     }
-
+    
     
 
-    public void insertarCliente(VentasTO ventasTO) {
+     public void InsertarDetalle(List<DetalleVentaTO> ventasTO) {
+        PreparedStatement ps = null;
+        Connection conn = super.getConexion();
+                ResultSet rs = null;
+
+        try {
+            ps = conn.prepareStatement("select max(idventa) from ventas");
+            rs = ps.executeQuery();
+            
+            int num= 0 ;
+            if(rs.next()){
+                num = rs.getInt("max(idventa)");
+            }
+            if(num==0){
+                num=1;
+            }
+            num++;
+            for(DetalleVentaTO x:ventasTO){
+            ps = conn.prepareStatement("INSERT INTO detalleventa(idVenta,NombreProducto,Precio) VALUES(?,?,?)");
+            ps.setInt(1, num);
+            ps.setDouble(3, x.getPrecio());
+            ps.setString(2, x.getNombre_Producto());
+            ps.execute();
+            }
+//            ps.setInt(1, ventasTO.getIdVenta());
+//            ps.setString(1, ventasTO.getFecha());
+//            ps.setString(3, String.valueOf(ventasTO.getNum_tarjeta()));
+//            ps.setString(4, ventasTO.getVencimiento());
+//            ps.setInt(5, ventasTO.getCvv());
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        } finally {
+            try {
+                if (ps != null && !ps.isClosed()) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+     
+     public void Generar_Monto(){
+         
+     }
+    
+
+    public void insertarventa(VentasTO ventasTO) {
         PreparedStatement ps = null;
         Connection conn = super.getConexion();
 
         try {
             ps = conn.prepareStatement("INSERT INTO ventas(fecha,monto,user) VALUES(NOW(),?,?)");
-            ps.setDouble(1, ventasTO.getMonto());
+            ps.setDouble(1, ventasTO.getTotalPagar());
             ps.setInt(2, ventasTO.getUser());
 
 //            ps.setInt(1, ventasTO.getIdVenta());

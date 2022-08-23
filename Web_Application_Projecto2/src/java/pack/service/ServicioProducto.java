@@ -16,6 +16,10 @@ import javax.faces.bean.ManagedBean;
 public class ServicioProducto extends Servicio implements Serializable {
 
     List<ProductoTO> products = demeProductos();
+    
+    List<ProductoTO> cart = new ArrayList();
+    
+    private double costoTotal = 0;
 
     public ServicioProducto() {
     }
@@ -51,6 +55,31 @@ public class ServicioProducto extends Servicio implements Serializable {
     @PostConstruct
     public void construirProductos() {
         demeProductos();
+    }
+    
+    public void insertarCarrito(ProductoTO productoTO) {
+
+        productoTO.setImagen(productoTO.getImagen());
+        productoTO.setNombreProducto(productoTO.getNombreProducto());
+        productoTO.setDescripcion(productoTO.getDescripcion());
+        productoTO.setPrecioVenta(productoTO.getPrecioVenta());
+        cart.add(productoTO);
+
+    }
+
+    public void deleteCarrito(ProductoTO productoTO) {
+
+        productoTO.setImagen(productoTO.getImagen());
+        productoTO.setNombreProducto(productoTO.getNombreProducto());
+        productoTO.setDescripcion(productoTO.getDescripcion());
+        productoTO.setPrecioVenta(productoTO.getPrecioVenta());
+        cart.remove(productoTO);
+
+    }
+
+    public double sumaCostoTotal() {
+        this.costoTotal = cart.stream().mapToDouble(ProductoTO::getPrecioVenta).sum();
+        return this.costoTotal;
     }
 
     public List<ProductoTO> demeProductos() {
@@ -173,5 +202,23 @@ public class ServicioProducto extends Servicio implements Serializable {
     public List<ProductoTO> getProducts() {
         return products;
     }
+
+    public List<ProductoTO> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<ProductoTO> cart) {
+        this.cart = cart;
+    }
+
+    public double getCostoTotal() {
+        return costoTotal;
+    }
+
+    public void setCostoTotal(double costoTotal) {
+        this.costoTotal = costoTotal;
+    }
+    
+    
 
 }

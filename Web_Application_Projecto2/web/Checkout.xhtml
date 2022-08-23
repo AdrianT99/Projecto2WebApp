@@ -5,7 +5,10 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        
+         <title>CheckOut</title>
         <p:growl id="message" showDetail="true"/>
+
 
         <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css"></link>
         <link rel="stylesheet" href="primeflex.css"></link>
@@ -24,18 +27,18 @@
                 margin: 50px;
             }
 
+            td.centeredColumnContent{
+                text-align: center;
+            }
 
         </style>
     </h:head>
 
     <body class="surface-section px-4 py-5 md:px-6 lg:px-8">
 
+            <h:form id="form" class="grid ">
+                <div>
 
-        <div class="surface-card p-4 shadow-2 border-round">
-
-
-            <div>
-                <h:form class="grid ">
                     <div class="col justify-content-start">
 
                         <label  class="text-3xl font-medium text-900 mb-3 ">Checkout</label>
@@ -50,13 +53,11 @@
                         <p:commandButton value="Yes" actionListener="#{CheckoutController.Salir()}" styleClass="ui-confirmdialog-yes" />
                     </p:confirmDialog>
 
-                </h:form>
-            </div>
-            <div class="font-medium text-500 mb-3">Llenar los datos abajo para completar la compra.</div>
-            <div class="grid align-items-stretch vertical-container">
+                </div>
+                <div class="font-medium text-500 mb-3">Llenar los datos abajo para completar la compra.</div>
 
 
-                <h:form class="mr-4 col-4 shadow-2 p-3 border-round surface-border">
+
 
                     <!--<div class="surface-card shadow-2 p-3 border-round">-->
                     <div class="grid">
@@ -75,208 +76,57 @@
                             <div class="grid">
                                 <div class="col-12">
                                     <label for="Nombre" class="block text-900 font-medium mb-2">Nombre</label>
-                                    <p:inputText id="Nombre" styleClass="mb-3 w-full"/>
-                                </div>
-                                <div class="col-6">
-                                    <label for="Apellido1" class="block text-900 font-medium mb-2">Primer Apellido</label>
-                                    <p:inputText id="Apellido1" styleClass="mb-3 w-full"/>
-                                </div>
-                                <div class="col-6">
-                                    <label for="Apellido2" class="block text-900 font-medium mb-2">Segundo Apellido</label>
-                                    <p:inputText id="Apellido2" styleClass="mb-3 w-full"/>
-                                </div>
-                                <div class="col-12">
-                                    <label for="Correo" class="block text-900 font-medium mb-2">Correo Electronico</label>
-                                    <p:inputText id="Correo" styleClass="mb-3 w-full"/>
+                                    <p:outputLabel value="#{loginController.user}"/>
                                 </div>
 
-                                <div class="col-12">
-                                    <label for="Direccion" class="block text-900 font-medium mb-2">Direccion</label>
-                                    <p:inputText id="Direccion" styleClass="mb-3 w-full"/>
-                                </div>
-
-                                <div class="col-12">
-                                    <label  class="block text-900 font-medium mb-2 ">Provincia</label>
-
-
-                                    <p:selectOneMenu class="w-full" value="#{CheckoutController.provincia}"
-                                                     filter="true" filterMatchMode="startsWith">
-                                        <p:ajax event="itemSelect" listener="#{CheckoutController.onItemSelect}" update="message" />
-
-                                        <f:selectItem itemLabel="San Jose" itemValue="San Jose"/>
-
-                                        <f:selectItem itemLabel="Alajuela" itemValue="Alajuela"/>
-                                        <f:selectItem itemLabel="Cartago" itemValue="Cartago"/>
-                                        <f:selectItem itemLabel="Heredia" itemValue="Heredia"/>
-                                        <f:selectItem itemLabel="Guanacaste" itemValue="Guanacaste"/>
-                                        <f:selectItem itemLabel="Puntarenas" itemValue="Puntarenas"/>
-                                        <f:selectItem itemLabel="Limon" itemValue="Limon"/>
-
-                                    </p:selectOneMenu>
-                                </div>
-                                <div class="col-12">
-                                    <label  class="block text-900 font-medium mb-2 ">Canton</label>
-
-                                    <p:selectOneMenu class="w-full" value="#{CheckoutController.canton}"
-                                                     filter="true" filterMatchMode="startsWith">
-                                        <p:ajax event="itemSelect" listener="#{CheckoutController.onItemSelect}" update="message" />
-
-                                        <f:selectItem itemLabel="San Jose" itemValue="San Jose"/>
-                                        <f:selectItem itemLabel=" Escazú" itemValue=" Escazú"/>
-                                        <f:selectItem itemLabel="Desamparados" itemValue="Desamparados"/>
-                                        <f:selectItem itemLabel="Puriscal" itemValue="Puriscal"/>
-                                        <f:selectItem itemLabel="Tarrazú" itemValue="Tarrazú"/>
-                                        <f:selectItem itemLabel=" Aserrí" itemValue=" Aserrí"/>
-                                        <f:selectItem itemLabel="Mora" itemValue="Mora"/>
-                                        <f:selectItem itemLabel="Mora" itemValue="Mora"/>
-                                        <f:selectItem itemLabel="Goicoechea" itemValue="Goicoechea"/>
-                                        <f:selectItem itemLabel="Santa Ana" itemValue="Santa Ana"/>
-                                        <f:selectItem itemLabel="Alajuelita" itemValue="Alajuelita"/>
-                                        <f:selectItem itemLabel=" Vázquez de Coronado" itemValue=" Vázquez de Coronado"/>
-                                        <f:selectItem itemLabel="Acosta" itemValue="Acosta"/>
-                                        <f:selectItem itemLabel="Tibás" itemValue="Tibás"/>
-                                        <f:selectItem itemLabel="Moravia" itemValue="Moravia"/>
-                                        <f:selectItem itemLabel="Montes de Oca" itemValue="Montes de Oca"/>
-                                        <f:selectItem itemLabel="Turrubares" itemValue="Turrubares"/>
-                                        <f:selectItem itemLabel="Dota" itemValue="Dota"/>
-                                        <f:selectItem itemLabel="Curridabat" itemValue="Curridabat"/>
-                                        <f:selectItem itemLabel="Pérez Zeledón" itemValue="Pérez Zeledón"/>
-                                        <f:selectItem itemLabel="León Cortés Castro" itemValue="León Cortés Castro"/>
-                                        <f:selectItem itemLabel="Alajuela" itemValue="Alajuela"/>
-                                        <f:selectItem itemLabel="San Ramón" itemValue="San Ramón"/>
-                                        <f:selectItem itemLabel="Grecia" itemValue="Grecia"/>
-                                        <f:selectItem itemLabel="San Mateo" itemValue="San Mateo"/>
-                                        <f:selectItem itemLabel="Atenas" itemValue="Atenas"/>
-                                        <f:selectItem itemLabel="Naranjo" itemValue="Naranjo"/>
-                                        <f:selectItem itemLabel="Palmares" itemValue="Palmares"/>
-                                        <f:selectItem itemLabel="Poás" itemValue="Poás"/>
-                                        <f:selectItem itemLabel="Orotina" itemValue="Orotina"/>
-                                        <f:selectItem itemLabel="San Carlos" itemValue="San Carlos"/>
-                                        <f:selectItem itemLabel="Zarcero" itemValue="Zarcero"/>
-                                        <f:selectItem itemLabel="Sarchí" itemValue="Sarchí"/>
-                                        <f:selectItem itemLabel="Upala" itemValue="Upala"/>
-                                        <f:selectItem itemLabel="Los Chiles" itemValue="Los Chiles"/>
-                                        <f:selectItem itemLabel="Guatuso" itemValue="Guatuso"/>
-                                        <f:selectItem itemLabel="Río Cuarto" itemValue="Río Cuarto"/>
-                                        <f:selectItem itemLabel="Cartago" itemValue="Cartago"/>
-                                        <f:selectItem itemLabel="Paraíso" itemValue="Paraíso"/>
-                                        <f:selectItem itemLabel="La Unión" itemValue="La Unión"/>
-                                        <f:selectItem itemLabel="Jiménez" itemValue="Jiménez"/>
-                                        <f:selectItem itemLabel="Turrialba" itemValue="Turrialba"/>
-                                        <f:selectItem itemLabel="Alvarado" itemValue="Alvarado"/>
-                                        <f:selectItem itemLabel="Oreamuno" itemValue="Oreamuno"/>
-                                        <f:selectItem itemLabel=" El Guarco" itemValue=" El Guarco"/>
-                                        <f:selectItem itemLabel="Heredia" itemValue="Heredia"/>
-                                        <f:selectItem itemLabel="Barva" itemValue="Barva"/>
-                                        <f:selectItem itemLabel="Santo Domingo" itemValue="Santo Domingo"/>
-                                        <f:selectItem itemLabel="Santa Bárbara" itemValue="Santa Bárbara"/>
-                                        <f:selectItem itemLabel="San Rafael" itemValue="San Rafael"/>
-                                        <f:selectItem itemLabel="San Isidro" itemValue="San Isidro"/>
-                                        <f:selectItem itemLabel=" Belén" itemValue=" Belén"/>
-                                        <f:selectItem itemLabel="Flores" itemValue="Flores"/>
-                                        <f:selectItem itemLabel="San Pablo" itemValue="San Pablo"/>
-                                        <f:selectItem itemLabel="Sarapiquí" itemValue="Sarapiquí"/>
-                                        <f:selectItem itemLabel="Liberia" itemValue="Mora"/>
-                                        <f:selectItem itemLabel="Nicoya" itemValue="Nicoya"/>
-                                        <f:selectItem itemLabel="Santa Cruz" itemValue="Santa Cruz"/>
-                                        <f:selectItem itemLabel="Bagaces" itemValue="Bagaces"/>
-                                        <f:selectItem itemLabel="Carrillo" itemValue="Carrillo"/>
-                                        <f:selectItem itemLabel="Cañas" itemValue="Cañas"/>
-                                        <f:selectItem itemLabel="Abangares" itemValue="Abangares"/>
-                                        <f:selectItem itemLabel=" Tilarán" itemValue=" Tilarán"/>
-                                        <f:selectItem itemLabel="Nandayure" itemValue="Nandayure"/>
-                                        <f:selectItem itemLabel="La Cruz" itemValue="La Cruz"/>
-                                        <f:selectItem itemLabel="Hojancha" itemValue="Hojancha"/>
-                                        <f:selectItem itemLabel="Puntarenas" itemValue="Puntarenas"/>
-                                        <f:selectItem itemLabel="Esparza" itemValue="Esparza"/>
-                                        <f:selectItem itemLabel=" Buenos Aires" itemValue=" Buenos Aires"/>
-                                        <f:selectItem itemLabel="Montes de Oro" itemValue="Montes de Oro"/>
-                                        <f:selectItem itemLabel="Osa" itemValue="Osa"/>
-                                        <f:selectItem itemLabel="Quepos" itemValue="Quepos"/>
-                                        <f:selectItem itemLabel="Golfito" itemValue="Golfito"/>
-                                        <f:selectItem itemLabel="Coto Brus" itemValue="Coto Brus"/>
-                                        <f:selectItem itemLabel="Coto Brus" itemValue="Coto Brus"/>
-                                        <f:selectItem itemLabel="Parrita" itemValue="Parrita"/>
-                                        <f:selectItem itemLabel="Corredores" itemValue="Corredores"/>
-                                        <f:selectItem itemLabel="Garabito" itemValue="Garabito"/>
-                                        <f:selectItem itemLabel="Monteverde" itemValue="Monteverde"/>
-                                        <f:selectItem itemLabel="Puerto Jiménez" itemValue="Puerto Jiménez"/>
-                                        <f:selectItem itemLabel=" Limón" itemValue=" Limón"/>
-                                        <f:selectItem itemLabel="Pococí" itemValue="Pococí"/>
-                                        <f:selectItem itemLabel="Siquirres" itemValue="Siquirres"/>
-                                        <f:selectItem itemLabel="Talamanca" itemValue="Talamanca"/>
-                                        <f:selectItem itemLabel="Matina" itemValue="Matina"/>
-                                        <f:selectItem itemLabel="Guácimo" itemValue="Guácimo"/>
-
-                                    </p:selectOneMenu>
-                                </div>
-                                <div class="col-12">
-                                    <label  class="block text-900 font-medium mb-2 ">Distrito</label>
-
-                                    <p:selectOneMenu class="w-full" value="#{CheckoutController.distrito}"
-                                                     filter="true" filterMatchMode="startsWith">
-                                        <p:ajax event="itemSelect" listener="#{CheckoutController.onItemSelect}" update="message" />
-
-                                        <f:selectItems value="#{CheckoutController.countriesGroup}"/>
-
-
-                                    </p:selectOneMenu>
-                                </div>
                             </div>
-
                         </div>
+
                     </div>
-
-
-
-
-
-
-
 
                     <!--</div>-->
 
-                </h:form>
-                <h:form class="mr-4 col-4 shadow-2 p-3 border-round surface-border">
 
-                    <div class="surface-card shadow-2 p-3 border-round">
 
-                        <div class="surface-section py-4">
                             <div class="font-medium text-3xl text-900 mb-3">Informacion</div>
 
-                            <ul class="list-none p-0 m-0">
-                                <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
-                                    <div class="text-500 w-6 md:w-2 font-medium">Usuario</div>
-                                    <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">#{loginController.clienteTO.user}</div>
-                                    <div class="w-6 md:w-2 flex justify-content-end">
+                            <p:dataTable  scrollable="true" scrollHeight="175" var="carrito" value="#{productService.cart}">
 
+                                <p:column styleClass="centeredColumnContent" headerText="Producto/imagen">
+                                    <h:outputText value="#{carrito.imagen}"/>
+                                </p:column>
+                                
+                                <p:column styleClass="centeredColumnContent" headerText="Nombre">
+                                    <h:outputText value="#{carrito.nombreProducto}"/>
+                                </p:column>
 
-                                        <p:commandButton type="button"  value="Edit" icon="pi pi-pencil"
-                                                         styleClass="ui-button-flat"/>
+                                <p:column styleClass="centeredColumnContent" headerText="Descripcion">
+                                    <h:outputText value="#{carrito.descripcion}"/>
+                                </p:column>
 
-                                    </div>
-                                </li>
-                                <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
-                                    <div class="text-500 w-6 md:w-2 font-medium">Contraseña</div>
-                                    <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">#{DashboardController.loginController.clienteTO.password}</div>
-
-
-                                    <div class="w-6 md:w-2 flex justify-content-end">
-                                        <p:commandButton type="button" value="Edit" icon="pi pi-pencil"
-                                                         styleClass="ui-button-flat"/>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </h:form>
-
-            </div>
+                                <p:column styleClass="centeredColumnContent" headerText="Precio">
+                                    <h:outputText value="#{carrito.precioVenta}"/>
+                                </p:column>
+                                
+                                <p:columnGroup type="footer">
+                <p:row>
+                    <p:column colspan="3" style="text-align:right" footerText="Totals:"/>
+                    <p:column>
+                        <f:facet name="footer">
+                            <h:outputText value="#{productService.sumaCostoTotal()}">
+                              <f:convertNumber type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </f:facet>
+                    </p:column>
                     
-        </div> 
+                </p:row>
+            </p:columnGroup>
+                            </p:dataTable>
+                            
+                    <p:commandButton value="Pagar" process="@this" update="form" 
+                                     action="#{CheckoutController.insertarVenta()}"/>
+
+
+            </h:form>
     </body>
 </html>
-   
-
-

@@ -49,6 +49,27 @@ public class CrudController implements Serializable {
         PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
+    
+    public void saveProductsCart() {
+        servicioProducto.insertarCarrito(selectedProduct);
+        //this.products.add(this.);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Agregado al Carrito"));
+
+        this.init();
+
+        PrimeFaces.current().executeScript("PF('ConfirmarAgregar').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
+
+    }
+
+    public void deleteProductsCart() {
+        servicioProducto.deleteCarrito(this.selectedProduct);
+        this.selectedProduct = null;        
+        PrimeFaces.current().executeScript("PF('deleteProductDialog').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
+        servicioProducto.sumaCostoTotal();
+
+    }
 
     public ProductoTO getSelectedProduct() {
         return selectedProduct;

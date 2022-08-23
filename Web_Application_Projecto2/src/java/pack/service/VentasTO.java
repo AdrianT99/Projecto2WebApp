@@ -3,33 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pack.controller;
-
-import java.io.Serializable;
-import java.util.Date;
+package pack.service;
 
 /**
  *
  * @author njoji
  */
-public class VentasTO implements Serializable {
+public class VentasTO {
     
     private int idVenta, user,cvv;
     private String num_tarjeta;
     private String vencimiento;
-    private double monto;
+    private double totalPagar;
     private String fecha;
     
     public VentasTO(){
     }
 
-    public VentasTO(int idVenta, int user, String num_tarjeta, String vencimiento, int cvv, double monto, String fecha) {
+    public VentasTO(int idVenta, int user, String num_tarjeta, String vencimiento, int cvv, double totalPagar, String fecha) {
         this.idVenta = idVenta;
         this.user = user;
         this.num_tarjeta = num_tarjeta;
         this.vencimiento = vencimiento;
         this.cvv = cvv;
-        this.monto = monto;
+        this.totalPagar = totalPagar;
         this.fecha = fecha;
     }
     
@@ -75,12 +72,12 @@ public class VentasTO implements Serializable {
         this.cvv = cvv;
     }
 
-    public double getMonto() {
-        return monto;
+    public double getTotalPagar() {
+        return totalPagar;
     }
 
-    public void setMonto(double monto) {
-        this.monto = monto;
+    public void setTotalPagar(double totalPagar) {
+        this.totalPagar = totalPagar;
     }
 
     public String getFecha() {
