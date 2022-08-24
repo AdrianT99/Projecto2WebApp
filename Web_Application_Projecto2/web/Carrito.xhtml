@@ -66,7 +66,7 @@
                              width: 100%;
                              height: 60px;">
                             
-                            <p:commandButton value="Checkout" icon="pi pi-shopping-cart" actionListener="#{DashboardController.checkOut()}"
+                            <p:commandButton value="Checkout" icon="pi pi-shopping-cart" actionListener="#{DashboardController.CheckOut()}"
                                              update=":form" oncomplete="PF('manageProductDialog').show()"
                                              styleClass="ui-button-success"
                                              style="float: left;
@@ -80,7 +80,7 @@
                         </div>
                     </p:toolbarGroup>
                 </p:toolbar>
-                <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{productService.cart}"
+                <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{CheckoutController.productoTO}"
                              reflow="true" styleClass="products-table"
                              rowKey="#{product.nombreProducto}" paginator="true"
                              rows="10" rowSelectMode="add" paginatorPosition="bottom" emptyMessage="No hay productos en su carrito">

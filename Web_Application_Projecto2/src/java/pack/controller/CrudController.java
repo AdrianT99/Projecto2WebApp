@@ -51,7 +51,8 @@ public class CrudController implements Serializable {
     }
     
     public void saveProductsCart() {
-        servicioProducto.insertarCarrito(selectedProduct);
+       servicioProducto.insertarCarrito(selectedProduct);
+        
         //this.products.add(this.);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Agregado al Carrito"));
 

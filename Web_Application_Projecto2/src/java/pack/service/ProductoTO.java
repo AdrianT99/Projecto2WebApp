@@ -1,7 +1,10 @@
 
 package pack.service;
 
+import java.awt.Image;
 import java.io.Serializable;
+import java.sql.Blob;
+import org.primefaces.model.StreamedContent;
 
 
 public class ProductoTO implements Serializable {
@@ -9,7 +12,7 @@ public class ProductoTO implements Serializable {
     int idProducto;
     String nombreProducto;
     double precioVenta;
-    String imagen;
+    byte[] imagen;
     double costoTotal;
     String tipo;
     String descripcion;
@@ -19,7 +22,7 @@ public class ProductoTO implements Serializable {
    
     }
 
-    public ProductoTO(int idProducto, String nombreProducto, double precioVenta, String imagen, double costoTotal, String tipo, String descripcion) {
+    public ProductoTO(int idProducto, String nombreProducto, double precioVenta, byte[] imagen, double costoTotal, String tipo, String descripcion) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.precioVenta = precioVenta;
@@ -53,11 +56,11 @@ public class ProductoTO implements Serializable {
         this.precioVenta = precioVenta;
     }
 
-    public String getImagen() {
+    public byte[] getImagen() {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
 

@@ -5,11 +5,13 @@
  */
 package pack.service;
 
+import java.io.Serializable;
+
 /**
  *
  * @author User1
  */
-public class DetalleVentaTO {
+public class DetalleVentaTO implements Serializable {
     private int idDetalleVenta;
     private int idventa;
     private String descripcion;

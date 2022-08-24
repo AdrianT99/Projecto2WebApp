@@ -88,8 +88,8 @@
                         </div>
                     </f:facet>
 
-                    <p:column headerText="imagen" sortBy="#{products}" filterBy="#{product.imagen}" filterMatchMode="contains">
-                        <h:outputText value="#{product.imagen}"/>
+                    <p:column headerText="imagen" sortBy="#{products}" filterMatchMode="contains">
+                        <p:graphicImage class="m-5" width="200" height="150"  value="#{product.imagen}" stream="True"/>
                     </p:column>
                     
                     <p:column headerText="Name" sortBy="#{product.nombreProducto}" filterBy="#{product.nombreProducto}"  filterMatchMode="contains">

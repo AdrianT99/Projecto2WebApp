@@ -1,6 +1,10 @@
 package pack.service;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,15 +14,19 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import org.primefaces.model.StreamedContent;
+import static sun.security.krb5.Confounder.bytes;
 
 @ManagedBean(name = "productService")
 @ApplicationScoped
 public class ServicioProducto extends Servicio implements Serializable {
 
     List<ProductoTO> products = demeProductos();
-    
+
     List<ProductoTO> cart = new ArrayList();
-    
+
     private double costoTotal = 0;
 
     public ServicioProducto() {
@@ -56,7 +64,7 @@ public class ServicioProducto extends Servicio implements Serializable {
     public void construirProductos() {
         demeProductos();
     }
-    
+
     public void insertarCarrito(ProductoTO productoTO) {
 
         productoTO.setImagen(productoTO.getImagen());
@@ -64,6 +72,17 @@ public class ServicioProducto extends Servicio implements Serializable {
         productoTO.setDescripcion(productoTO.getDescripcion());
         productoTO.setPrecioVenta(productoTO.getPrecioVenta());
         cart.add(productoTO);
+
+    }
+
+    public List<ProductoTO> insertarCarrito2(ProductoTO productoTO) {
+
+        productoTO.setImagen(productoTO.getImagen());
+        productoTO.setNombreProducto(productoTO.getNombreProducto());
+        productoTO.setDescripcion(productoTO.getDescripcion());
+        productoTO.setPrecioVenta(productoTO.getPrecioVenta());
+        cart.add(productoTO);
+        return cart;
 
     }
 
@@ -83,17 +102,18 @@ public class ServicioProducto extends Servicio implements Serializable {
     }
 
     public List<ProductoTO> demeProductos() {
-        
+
         List<ProductoTO> listaRetorno = new ArrayList<>();
-        
+
         Connection conn = super.getConexion();
         PreparedStatement ps = null;
         ResultSet rs = null;
+  
 
         try {
             //Paso 3 (Preparar)
             //super.conectar();
-            ps = conn.prepareStatement("SELECT IDPRODUCTO,NOMBRE,PRECIOVENTA,IMAGEN, COSTOTOTAL, TIPO FROM PRODUCTO");
+            ps = conn.prepareStatement("SELECT IDPRODUCTO,NOMBRE,PRECIOVENTA,IMAGEN, COSTOTOTAL, TIPO, DESCRIPCION FROM PRODUCTO");
             rs = ps.executeQuery();
 
             //Paso 4 (Ejectuar)
@@ -102,16 +122,21 @@ public class ServicioProducto extends Servicio implements Serializable {
                 int idProducto = rs.getInt("IDPRODUCTO");
                 String nombreProducto = rs.getString("NOMBRE");
                 double precioVenta = rs.getInt("PRECIOVENTA");
-                String imagen = rs.getString("IMAGEN");
+                byte[] imagen = rs.getBytes("IMAGEN");
                 double costoTotal = rs.getInt("COSTOTOTAL");
                 String tipo = rs.getString("TIPO");
+                String descripcion = rs.getString("DESCRIPCION");
 
+               
+          
                 ProductoTO productoTO = new ProductoTO();
+
                 productoTO.setIdProducto(idProducto);
                 productoTO.setNombreProducto(nombreProducto);
                 productoTO.setPrecioVenta(precioVenta);
                 productoTO.setImagen(imagen);
                 productoTO.setTipo(tipo);
+                productoTO.setDescripcion(descripcion);
 
                 listaRetorno.add(productoTO);
 
@@ -218,7 +243,5 @@ public class ServicioProducto extends Servicio implements Serializable {
     public void setCostoTotal(double costoTotal) {
         this.costoTotal = costoTotal;
     }
-    
-    
 
 }
