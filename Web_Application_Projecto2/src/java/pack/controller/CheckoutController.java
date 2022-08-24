@@ -1,6 +1,7 @@
 package pack.controller;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -194,16 +195,23 @@ public class CheckoutController implements Serializable {
     }
 
     public double sumaCostoTotal() {
-        this.costoTotal = 1000;
+        double temp;
+        costoTotal = 0;
 
-        return this.costoTotal;
+        for (ProductoTO selectedProduct : productoTO) {
+
+            temp = selectedProduct.getPrecioVenta();
+            costoTotal += temp;
+        }
+        return costoTotal;
     }
 
     public void insertarVenta() {
-        String fecha = "hoy";
+        LocalDate fecha = LocalDate.now();
+        String Fecha = ""+fecha;
         ventasTO = new VentasTO();
         ventasTO.setUser(activeUser.getIdUser());
-        ventasTO.setFecha(fecha);
+        ventasTO.setFecha(Fecha);
         ventasTO.setTotalPagar(sumaCostoTotal());
 
         setVentasTO(ventasTO);

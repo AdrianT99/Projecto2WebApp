@@ -7,7 +7,75 @@
     <h:head>
         <title>tester</title>
     </h:head>
-    <h:body>
+    
+    <style type="text/css">
+            button.ui-button {
+                margin-right: .700rem;
+
+            }
+
+            html,
+            body { height: 100%;
+            }
+            .parent {
+                height: 60px;
+                display: flex;
+                align-items: baseline;
+                justify-content: flex-start;
+                padding-top: 40px;
+                margin-bottom: 40px            }
+
+            this_form{
+                justify-content: flex-start;
+            }
+
+            Head{
+
+                margin: 50px;
+            }
+            
+            .class fondoGeneral
+            {
+                
+            }
+            #FondoPaginaCostos {
+                width: 95%;
+                height: 90vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-size: 300% 300%;
+                background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
+                -webkit-animation: AnimateBG 10s ease infinite;
+                animation: AnimateBG 10s ease infinite;
+            }
+
+            @-webkit-keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            @keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+        </style>
+    <h:body id="FondoPaginaCostos">
 
         <div id="arrayDetalleProductos">
 
@@ -15,7 +83,7 @@
 
                 <p:growl id="msgs" showDetail="true"/>
 
-                <div id="bloque1">
+                <div id="bloque1" clas="fondoGeneral">
                     <p:panelGrid class = "login" columns="1">
                         Nombre: <p:inputText id="nombreProducto" value="#{CostosController.nombreProducto}"
                                              style="margin: auto;
@@ -114,8 +182,8 @@
 
                 </div>
 
-                <div id="calculosArrayDetalleProductos">
-                    <h:panelGrid columns="2" cellpadding="7" id="costoTemp">
+                <div id="calculosArrayDetalleProductos" class="fondoGeneral" style="color:white;">
+                    <h:panelGrid class = "login" columns="2" cellpadding="7" id="costoTemp">
                         <h:outputText value="Costo Total"/>
                         <h:outputLabel value="#{CostosController.costoTotal}">
                             <f:convertNumber type="currency" currencySymbol="$"/>
