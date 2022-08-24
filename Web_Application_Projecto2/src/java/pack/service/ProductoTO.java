@@ -1,10 +1,7 @@
 
 package pack.service;
 
-import java.awt.Image;
 import java.io.Serializable;
-import java.sql.Blob;
-import org.primefaces.model.StreamedContent;
 
 
 public class ProductoTO implements Serializable {

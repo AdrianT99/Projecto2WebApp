@@ -90,6 +90,11 @@ ServicioDashboard dash = new ServicioDashboard();
          this.redireccionar("/faces/Checkout.xhtml");
     }
     
+    public void EditarProducto(){
+        this.redireccionar("/faces/EditarProducto.xhtml");
+        
+    }
+    
      public void redireccionar(String ruta) {
 
         HttpServletRequest request;
