@@ -10,7 +10,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.file.UploadedFile;
 import pack.service.DetalleProductoTO;
 import pack.service.ProductoTO;
 import pack.service.ServicioDetalle;
@@ -28,11 +30,13 @@ public class AddRowView implements Serializable {
     String tipo;
     String nombreProducto;
     String descripcion;
+    byte[] imagen;
     ProductoTO productoTO = new ProductoTO();
     DetalleProductoTO detalleProductoTO = new DetalleProductoTO();
     ServicioProducto sp = new ServicioProducto();
     ServicioDetalle sd =  new ServicioDetalle();
     DetalleProductoTO selectedDetalle;
+     private UploadedFile file;
     @ManagedProperty("#{detalleProducto}")
     
     private List<DetalleProductoTO> detalleProducto;
@@ -121,6 +125,24 @@ public class AddRowView implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
+    
+    
+    
+      public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
     
     public void insertarProducto()
     {
@@ -131,6 +153,7 @@ public class AddRowView implements Serializable {
         productoTO.setCostoTotal(costoTotal);
         productoTO.setTipo(tipo);
         productoTO.setDescripcion(descripcion);
+        productoTO.setImagen(imagen);
         setProductoTO(productoTO);
         
         sp.insertarProducto(productoTO);
@@ -181,6 +204,19 @@ public class AddRowView implements Serializable {
         selectedDetalle = new DetalleProductoTO(0,0,"",0);
         detalleProducto.add(selectedDetalle);
 
+    }
+    
+     public void upload() {
+        if (file != null) {
+            FacesMessage message = new FacesMessage("Successful", file.getFileName() + " is uploaded.");
+            this.imagen = file.getContent();
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+     
+     public void handleFileUpload(FileUploadEvent event) {
+        FacesMessage message = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     public int sumaCostoTotal() {

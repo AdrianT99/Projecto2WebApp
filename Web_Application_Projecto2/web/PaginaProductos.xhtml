@@ -99,9 +99,14 @@
                         </div>
                     </f:facet>
 
-                    <p:column headerText="idProducto" sortBy="#{products}" filterBy="#{product.idProducto}" filterMatchMode="contains">
+                     <p:column headerText="idProducto" sortBy="#{products}" filterBy="#{product.idProducto}" filterMatchMode="contains">
                         <h:outputText value="#{product.idProducto}"/>
                     </p:column>
+                    
+                    <p:column headerText="imagen" sortBy="#{products}" filterBy="#{product.imagen}" filterMatchMode="contains">
+                        <p:graphicImage class="m-5" width="200" height="150"  value="#{product.imagen}" stream="false"/>
+                    </p:column>
+                    
                     <p:column headerText="Name" sortBy="#{product.nombreProducto}" filterBy="#{product.nombreProducto}"  filterMatchMode="contains">
                         <h:outputText value="#{product.nombreProducto}"/>
                     </p:column>
@@ -148,7 +153,7 @@
 
                             <div class="p-field">
                                 <p:outputLabel for="price">Precio</p:outputLabel>
-                                <p:inputText id="price" value="#{crudView.selectedProduct.precio}"/>
+                                <p:inputText id="price" value="#{crudView.selectedProduct.precioVenta}"/>
                             </div>
 
                         </p:outputPanel>

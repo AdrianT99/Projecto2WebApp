@@ -88,19 +88,18 @@
                         </div>
                     </f:facet>
 
-                    <p:column headerText="imagen" sortBy="#{products}" filterMatchMode="contains">
-                        <p:graphicImage class="m-5" width="200" height="150"  value="#{product.imagen}" stream="True"/>
+                   
+                
+                    
+                    <p:column headerText="imagen" sortBy="#{products}" filterBy="#{product.imagen}" filterMatchMode="contains">
+                        <p:graphicImage class="m-5" width="200" height="150"  value="#{product.imagen}" stream="false"/>
                     </p:column>
                     
                     <p:column headerText="Name" sortBy="#{product.nombreProducto}" filterBy="#{product.nombreProducto}"  filterMatchMode="contains">
                         <h:outputText value="#{product.nombreProducto}"/>
                     </p:column>
-                    
-                    <p:column headerText="Descripcion" sortBy="#{products}" filterBy="#{product.descripcion}" filterMatchMode="contains">
-                        <h:outputText value="#{product.descripcion}"/>
-                    </p:column>
 
-                    <p:column headerText="Precio" sortBy="#{product.precioVenta}"  filterBy="#{product.precioVenta}"  filterMatchMode="contains">
+                    <p:column headerText="Price" sortBy="#{product.precioVenta}"  filterBy="#{product.precioVenta}"  filterMatchMode="contains">
                         <h:outputText value="#{product.precioVenta}" style="font-weight: 700">
                             <f:convertNumber currencySymbol="$" type="currency"/>
                         </h:outputText>

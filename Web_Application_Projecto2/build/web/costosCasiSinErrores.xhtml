@@ -7,79 +7,79 @@
     <h:head>
         <title>tester</title>
     </h:head>
-    
+
     <style type="text/css">
-            button.ui-button {
-                margin-right: .700rem;
+        button.ui-button {
+            margin-right: .700rem;
 
-            }
+        }
 
-            html,
-            body { height: 100%;
-            }
-            .parent {
-                height: 60px;
-                display: flex;
-                align-items: baseline;
-                justify-content: flex-start;
-                padding-top: 40px;
-                margin-bottom: 40px            }
+        html,
+        body { height: 100%;
+        }
+        .parent {
+            height: 60px;
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-start;
+            padding-top: 40px;
+            margin-bottom: 40px            }
 
-            this_form{
-                justify-content: flex-start;
-            }
+        this_form{
+            justify-content: flex-start;
+        }
 
-            Head{
+        Head{
 
-                margin: 50px;
-            }
-            
-            .class fondoGeneral
-            {
-                
-            }
-            #FondoPaginaCostos {
-                width: 95%;
-                height: 90vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-size: 300% 300%;
-                background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
-                -webkit-animation: AnimateBG 10s ease infinite;
-                animation: AnimateBG 10s ease infinite;
-            }
+            margin: 50px;
+        }
 
-            @-webkit-keyframes AnimateBG {
-                0% {
-                    background-position: 0% 50%;
-                }
-                50% {
-                    background-position: 100% 50%;
-                }
-                100% {
-                    background-position: 0% 50%;
-                }
-            }
+        .class fondoGeneral
+        {
 
-            @keyframes AnimateBG {
-                0% {
-                    background-position: 0% 50%;
-                }
-                50% {
-                    background-position: 100% 50%;
-                }
-                100% {
-                    background-position: 0% 50%;
-                }
-            }
+        }
+        #FondoPaginaCostos {
+            width: 95%;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: 300% 300%;
+            background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
+            -webkit-animation: AnimateBG 10s ease infinite;
+            animation: AnimateBG 10s ease infinite;
+        }
 
-        </style>
+        @-webkit-keyframes AnimateBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes AnimateBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+    </style>
     <h:body id="FondoPaginaCostos">
 
         <div id="arrayDetalleProductos">
 
-            <h:form id="formArrayDetalleProductos">
+            <h:form id="formArrayDetalleProductos"  enctype="multipart/form-data">
 
                 <p:growl id="msgs" showDetail="true"/>
 
@@ -214,6 +214,15 @@
 
                     <p:commandButton value="Guardar" process="@this" update="formArrayDetalleProductos" 
                                      action="#{CostosController.insertarProducto()}"/>
+                </div>
+
+                <div class="card">
+                    <h5>Single</h5>
+                  
+                    <p:fileUpload value="#{CostosController.file}" mode="simple" skinSimple="true"/>
+
+                        <p:commandButton value="Submit" ajax="false" action="#{CostosController.upload}" styleClass="mt-3 ui-button-outlined block"/>
+                  
                 </div>
 
             </h:form>
