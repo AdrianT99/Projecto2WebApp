@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import pack.service.ServicioDashboard;
+import pack.service.ServicioDetalle;
 
 @ManagedBean(name = "DashboardController")
 @SessionScoped
@@ -19,6 +20,8 @@ public class DashboardController implements Serializable {
     private String hora;
     private int Usuarios;
     private int UsuariosAdmin;
+    CrudController crudController = new CrudController();
+    
     @ManagedProperty("#{loginController}")
     private LoginController loginController;
     
@@ -70,7 +73,7 @@ ServicioDashboard dash = new ServicioDashboard();
     }
     
     public void Catalogo(){
-        this.redireccionar("/faces/PaginaProductos.xhtml");
+        this.redireccionar("/faces/PaginaProductos2.xhtml");
     }
     
     public void Clientes(){
@@ -90,10 +93,13 @@ ServicioDashboard dash = new ServicioDashboard();
          this.redireccionar("/faces/Checkout.xhtml");
     }
     
-    public void EditarProducto(){
-        this.redireccionar("/faces/EditarProducto.xhtml");
-        
+    public void EditarDetalle(){
+       
+        this.redireccionar("/faces/PaginaDetalles.xhtml");
+       
     }
+    
+    
     
      public void redireccionar(String ruta) {
 

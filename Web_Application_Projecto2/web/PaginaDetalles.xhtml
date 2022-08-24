@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Crud</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <div class="card crud-demo">
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:dataTable id="dt-detalles" widgetVar="dtDetalles" var="detalle" value="#{crudView.detalles}"
+                             reflow="true" styleClass="products-table"
+                             rowKey="#{detalle.idProducto}" paginator="true"
+                             rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span style="font-weight: bold">Detalles</span>                     
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="idProducto" sortBy="#{detalle}" filterBy="#{detalle.idProducto}" filterMatchMode="contains">
+                        <h:outputText value="#{detalle.idProducto}"/>
+                    </p:column>
+                    
+                    <p:column headerText="idProducto" sortBy="#{detalle}" filterBy="#{detalle.cantidad}" filterMatchMode="contains">
+                        <h:outputText value="#{detalle.cantidad}"/>
+                    </p:column>
+                
+                
+                    <p:column headerText="Name" sortBy="#{detalle.costoUnitario}" filterBy="#{detalle.costoUnitario}"  filterMatchMode="contains">
+                        <h:outputText value="#{detalle.costoUnitario}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Name" sortBy="#{detalle.descripcion}" filterBy="#{detalle.descripcion}"  filterMatchMode="contains">
+                        <h:outputText value="#{detalle.descripcion}"/>
+                    </p:column>
+
+                    <p:column headerText="Price" sortBy="#{detalle.total}"  filterBy="#{detalle.total}"  filterMatchMode="contains">
+                        <h:outputText value="#{detalle.total}" style="font-weight: 700"/>   
+                    </p:column>
+                
+                </p:dataTable>
+                
+                 
+
+            </div>
+        </h:form>
+    </h:body>
+</html>

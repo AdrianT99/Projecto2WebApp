@@ -5,15 +5,18 @@
  */
 package pack.controller;
 
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import pack.service.DetalleProductoTO;
 import pack.service.ProductoTO;
+import pack.service.ServicioDetalle;
 
-@ManagedBean(name = "EditarProductoController")
+@ManagedBean(name = "EditarDetalleController")
 @ViewScoped
-public class editarProductoController {
+public class editarDetalleController {
     int idProducto;
     String nombreProducto;
     double precioVenta;
@@ -24,21 +27,51 @@ public class editarProductoController {
     
     ProductoTO selectedProduct;
     CrudController crudController;
+    ServicioDetalle servicioDetalle = new ServicioDetalle();
 
     @ManagedProperty("#{crudView}")
     private CrudController crudView;
 
-    @ManagedProperty("#{detalleProducto}")
-    private ProductoTO productoTO;
+    @ManagedProperty("#{Producto}")
+    private ProductoTO producto;
+    
+     @ManagedProperty("#{Detalle}")
+    private List<DetalleProductoTO> detalle;
     
     
     @PostConstruct
     public void init() {
-        this.productoTO = crudView.getSelectedProduct();
+        this.producto = crudView.getSelectedProduct();
+        this.detalle = servicioDetalle.listaDetalleProducto(producto.getIdProducto());
+    }
+    public editarDetalleController() {
+    }
 
+    public ServicioDetalle getServicioDetalle() {
+        return servicioDetalle;
     }
-    public editarProductoController() {
+
+    public void setServicioDetalle(ServicioDetalle servicioDetalle) {
+        this.servicioDetalle = servicioDetalle;
     }
+
+    public ProductoTO getProducto() {
+        return producto;
+    }
+
+    public void setProducto(ProductoTO producto) {
+        this.producto = producto;
+    }
+
+    public List<DetalleProductoTO> getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(List<DetalleProductoTO> detalle) {
+        this.detalle = detalle;
+    }
+    
+    
 
     public int getIdProducto() {
         return idProducto;
@@ -121,11 +154,11 @@ public class editarProductoController {
     }
 
     public ProductoTO getProductoTO() {
-        return productoTO;
+        return producto;
     }
 
-    public void setProductoTO(ProductoTO productoTO) {
-        this.productoTO = productoTO;
+    public void setProductoTO(ProductoTO producto) {
+        this.producto = producto;
     }
 
     

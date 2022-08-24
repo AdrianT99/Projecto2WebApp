@@ -7,22 +7,32 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
+import pack.service.DetalleProductoTO;
+import pack.service.ServicioDetalle;
 
 @ManagedBean(name = "crudView")
-@ViewScoped
+@ApplicationScoped
 public class CrudController implements Serializable {
 
     private ProductoTO selectedProduct = new ProductoTO();
+    private ProductoTO productoEditable = getSelectedProduct();
 
     @ManagedProperty("#{productService}")
     private ServicioProducto servicioProducto;
+    
+    @ManagedProperty("#{detalleService}")
+    private ServicioDetalle servicioDetalle;
+    
+  
 
     private List<ProductoTO> products = new ArrayList();
+    private List<DetalleProductoTO> detalles = new ArrayList();
 
     int idProducto;
     String nombreProducto;
@@ -31,7 +41,10 @@ public class CrudController implements Serializable {
     double costoTotal;
     String tipo;
     String descripcion;
+    int estado;
     
+    
+ 
     
     public CrudController() {
     }
@@ -39,18 +52,21 @@ public class CrudController implements Serializable {
     @PostConstruct
     public void init() {
         this.products = servicioProducto.demeProductos();
+      
     }
 
     public void openNew() {
         this.selectedProduct = new ProductoTO();
     }
-
+    
+    
     public void saveProduct() {
         if (this.selectedProduct.getIdProducto() == 0) {
-            servicioProducto.insertarProducto(selectedProduct);
+           
             //this.products.add(this.);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Product Added"));
         } else {
+            servicioProducto.actualizarProducto(selectedProduct);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Product Updated"));
         }
         this.init();
@@ -58,28 +74,7 @@ public class CrudController implements Serializable {
         PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
-    
-    public void saveProductsCart() {
-       servicioProducto.insertarCarrito(selectedProduct);
-        
-        //this.products.add(this.);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Agregado al Carrito"));
 
-        this.init();
-
-        PrimeFaces.current().executeScript("PF('ConfirmarAgregar').hide()");
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
-
-    }
-
-    public void deleteProductsCart() {
-        servicioProducto.deleteCarrito(this.selectedProduct);
-        this.selectedProduct = null;        
-        PrimeFaces.current().executeScript("PF('deleteProductDialog').hide()");
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
-        servicioProducto.sumaCostoTotal();
-
-    }
 
     public ProductoTO getSelectedProduct() {
         return selectedProduct;
@@ -87,6 +82,7 @@ public class CrudController implements Serializable {
 
     public void setSelectedProduct(ProductoTO selectedProduct) {
         this.selectedProduct = selectedProduct;
+     
     }
 
     public ServicioProducto getServicioProducto() {
@@ -156,8 +152,44 @@ public class CrudController implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    
-    
 
+    public ProductoTO getProductoEditable() {
+        return productoEditable;
+    }
+
+    public void setProductoEditable(ProductoTO productoEditable) {
+        this.productoEditable = productoEditable;
+    }
+
+    public ServicioDetalle getServicioDetalle() {
+        return servicioDetalle;
+    }
+
+    public void setServicioDetalle(ServicioDetalle servicioDetalle) {
+        this.servicioDetalle = servicioDetalle;
+    }
+
+    public List<DetalleProductoTO> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleProductoTO> detalles) {
+        this.detalles = detalles;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+  
+    
+    public void actualizarProducto(){
+        servicioProducto.actualizarProducto(selectedProduct);
+    }
+    
+   
 }

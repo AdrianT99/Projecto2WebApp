@@ -17,6 +17,8 @@ public class ServicioProducto extends Servicio implements Serializable {
 
     List<ProductoTO> products = demeProductos();
 
+    List<ProductoTO> products2 = demeProductosCX();
+
     List<ProductoTO> cart = new ArrayList();
 
     private double costoTotal = 0;
@@ -101,12 +103,11 @@ public class ServicioProducto extends Servicio implements Serializable {
         Connection conn = super.getConexion();
         PreparedStatement ps = null;
         ResultSet rs = null;
-  
 
         try {
             //Paso 3 (Preparar)
             //super.conectar();
-            ps = conn.prepareStatement("SELECT IDPRODUCTO,NOMBRE,PRECIOVENTA,IMAGEN, COSTOTOTAL, TIPO, DESCRIPCION FROM PRODUCTO");
+            ps = conn.prepareStatement("SELECT IDPRODUCTO,NOMBRE,PRECIOVENTA,IMAGEN, COSTOTOTAL, TIPO, DESCRIPCION FROM PRODUCTO WHERE ESTADO=1");
             rs = ps.executeQuery();
 
             //Paso 4 (Ejectuar)
@@ -120,8 +121,6 @@ public class ServicioProducto extends Servicio implements Serializable {
                 String tipo = rs.getString("TIPO");
                 String descripcion = rs.getString("DESCRIPCION");
 
-               
-          
                 ProductoTO productoTO = new ProductoTO();
 
                 productoTO.setIdProducto(idProducto);
@@ -131,6 +130,67 @@ public class ServicioProducto extends Servicio implements Serializable {
                 productoTO.setImagen(imagen);
                 productoTO.setTipo(tipo);
                 productoTO.setDescripcion(descripcion);
+
+                listaRetorno.add(productoTO);
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            //Paso 5 (Cerrar)  
+        } finally {
+            try {
+                if (ps != null && !ps.isClosed()) {
+                    ps.close();
+                }
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            //super.desconectar();
+
+        }
+        return listaRetorno;
+    }
+
+    public List<ProductoTO> demeProductosCX() {
+
+        List<ProductoTO> listaRetorno = new ArrayList<>();
+
+        Connection conn = super.getConexion();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            //Paso 3 (Preparar)
+            //super.conectar();
+            ps = conn.prepareStatement("SELECT IDPRODUCTO,NOMBRE,PRECIOVENTA,IMAGEN, COSTOTOTAL, TIPO, DESCRIPCION, ESTADO FROM PRODUCTO");
+            rs = ps.executeQuery();
+
+            //Paso 4 (Ejectuar)
+            while (rs.next()) {
+
+                int idProducto = rs.getInt("IDPRODUCTO");
+                String nombreProducto = rs.getString("NOMBRE");
+                double precioVenta = rs.getInt("PRECIOVENTA");
+                byte[] imagen = rs.getBytes("IMAGEN");
+                double costoTotal = rs.getInt("COSTOTOTAL");
+                String tipo = rs.getString("TIPO");
+                String descripcion = rs.getString("DESCRIPCION");
+                int estado = rs.getInt("ESTADO");
+
+                ProductoTO productoTO = new ProductoTO();
+
+                productoTO.setIdProducto(idProducto);
+                productoTO.setNombreProducto(nombreProducto);
+                productoTO.setPrecioVenta(precioVenta);
+                productoTO.setCostoTotal(costoTotal);
+                productoTO.setImagen(imagen);
+                productoTO.setTipo(tipo);
+                productoTO.setDescripcion(descripcion);
+                productoTO.setEstado(estado);
 
                 listaRetorno.add(productoTO);
 
@@ -218,6 +278,37 @@ public class ServicioProducto extends Servicio implements Serializable {
         }
     }
 
+    public void actualizarProducto(ProductoTO productoTO) {
+        PreparedStatement ps = null;
+        Connection conn = super.getConexion();
+        try {
+
+            ps = conn.prepareStatement("UPDATE Producto SET NOMBRE=?,"
+                    + "PRECIOVENTA=?, COSTOTOTAL=?,"
+                    + "TIPO=?, DESCRIPCION=?, ESTADO=? WHERE IDPRODUCTO=?");
+
+            ps.setString(1, productoTO.getNombreProducto());
+            ps.setDouble(2, productoTO.getPrecioVenta());
+            ps.setDouble(3, productoTO.getCostoTotal());
+            ps.setString(4, productoTO.getTipo());
+            ps.setString(5, productoTO.getDescripcion());
+            ps.setInt(6, productoTO.getEstado());
+            ps.setInt(7, productoTO.getIdProducto());
+            ps.execute();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (ps != null && !ps.isClosed()) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     public List<ProductoTO> getProducts() {
         return products;
     }
@@ -236,6 +327,14 @@ public class ServicioProducto extends Servicio implements Serializable {
 
     public void setCostoTotal(double costoTotal) {
         this.costoTotal = costoTotal;
+    }
+
+    public List<ProductoTO> getProducts2() {
+        return products2;
+    }
+
+    public void setProducts2(List<ProductoTO> products2) {
+        this.products2 = products2;
     }
 
 }

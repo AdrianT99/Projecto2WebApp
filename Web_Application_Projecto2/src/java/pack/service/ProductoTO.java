@@ -13,13 +13,14 @@ public class ProductoTO implements Serializable {
     double costoTotal;
     String tipo;
     String descripcion;
+    int estado;
     
    
     public ProductoTO() {
    
     }
 
-    public ProductoTO(int idProducto, String nombreProducto, double precioVenta, byte[] imagen, double costoTotal, String tipo, String descripcion) {
+    public ProductoTO(int idProducto, String nombreProducto, double precioVenta, byte[] imagen, double costoTotal, String tipo, String descripcion, int estado) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.precioVenta = precioVenta;
@@ -27,6 +28,7 @@ public class ProductoTO implements Serializable {
         this.costoTotal = costoTotal;
         this.tipo = tipo;
         this.descripcion = descripcion;
+        this.estado = estado;
     }
     
     public int getIdProducto() {
@@ -84,6 +86,16 @@ public class ProductoTO implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+    
+    
 
    
 }
