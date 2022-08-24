@@ -65,17 +65,6 @@
                                                 margin: auto;
                                                 width: 100%;
                                                 height: 60px;">
-                        <p:commandButton value="New" icon="pi pi-plus" actionListener="#{crudView.openNew}"
-                                         update=":form" oncomplete="PF('manageProductDialog').show()"
-                                         styleClass="ui-button-success"
-                                         style="float: left;
-                                                margin: auto;
-                                                margin-top: 5px;
-                                                width: 200px;
-                                                height: 50px;">
-                            <p:resetInput target=":form:manage-product-content"/>
-                        </p:commandButton>
-
                         <p:commandButton value="Crear Cuenta" 
                                          styleClass="ui-button-success" 
                                          actionListener="#{UserWizardController.ingresarRegistro()}"
@@ -85,6 +74,15 @@
                                                 width: 200px;
                                                 height: 50px;">
                         </p:commandButton>
+                            <p:commandButton value="Carrito" icon="pi pi-shopping-cart" actionListener="#{DashboardController.Carrito()}"
+                                             styleClass="ui-button-raised col"
+                                             style="float: left;
+                                             margin: auto;
+                                             margin-top: 5px;
+                                             width: 200px;
+                                             height: 50px;">
+
+                            </p:commandButton>
 
                         </div>
                     </p:toolbarGroup>
@@ -102,24 +100,31 @@
                     <p:column headerText="idProducto" sortBy="#{products}" filterBy="#{product.idProducto}" filterMatchMode="contains">
                         <h:outputText value="#{product.idProducto}"/>
                     </p:column>
-                    <p:column headerText="Name" sortBy="#{product.nombreProducto}" filterBy="#{product.nombreProducto}"  filterMatchMode="contains">
+                    <p:column headerText="Nombre" sortBy="#{product.nombreProducto}" filterBy="#{product.nombreProducto}"  filterMatchMode="contains">
                         <h:outputText value="#{product.nombreProducto}"/>
                     </p:column>
 
-                    <p:column headerText="Price" sortBy="#{product.precioVenta}"  filterBy="#{product.precioVenta}"  filterMatchMode="contains">
+                    <p:column headerText="Precio Venta" sortBy="#{product.precioVenta}"  filterBy="#{product.precioVenta}"  filterMatchMode="contains">
                         <h:outputText value="#{product.precioVenta}" style="font-weight: 700">
                             <f:convertNumber currencySymbol="$" type="currency"/>
                         </h:outputText>
                     </p:column>
+                    
+                    <p:column headerText="Costo Total" sortBy="#{product.costoTotal}"  filterBy="#{product.costoTotal}"  filterMatchMode="contains">
+                        <h:outputText value="#{product.costoTotal}" style="font-weight: 700">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                    </p:column>
+                    
+                    
                     <p:column>
 
                         <p:panelGrid columns="2" layout="grid" style="border:0px none;background:none; text-align: center">
 
-                            <p:commandButton icon="pi pi-pencil" update=":form:manage-product-content"
-                                             oncomplete="PF('manageProductDialog').show()"
-                                             styleClass="edit-button rounded-button ui-button-success" process="@this">
-                                <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
-                                <p:resetInput target=":form:manage-product-content"/>
+                             <p:commandButton value ="Editar" icon="pi pi-shopping-cart"
+                                             oncomplete="PF('ConfirmarAgregar').show()"
+                                             styleClass="edit-button rounded-button ui-button-success" process="@this">                                
+                                <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct()}"/>
                             </p:commandButton>
 
                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
@@ -130,6 +135,13 @@
                     </p:column>
 
                 </p:dataTable>
+                
+                <p:dialog widgetVar="ConfirmarAgregar" showEffect="fade" width="300"
+                                  header="Editar">
+                    <p:commandButton value="Si" icon="pi pi-check" actionListener="#{crudView.editarProducto()}"
+                                     process="@this" update="form" oncomplete="PF('ConfirmarAgregar').hide()" />
+
+                </p:dialog>
 
                 <p:dialog header="Product Details" showEffect="fade" modal="true"
                           widgetVar="manageProductDialog" responsive="true">
@@ -148,7 +160,7 @@
 
                             <div class="p-field">
                                 <p:outputLabel for="price">Precio</p:outputLabel>
-                                <p:inputText id="price" value="#{crudView.selectedProduct.precio}"/>
+                                <p:inputText id="price" value="#{crudView.selectedProduct.precioVenta}"/>
                             </div>
 
                         </p:outputPanel>

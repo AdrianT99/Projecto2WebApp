@@ -1,10 +1,6 @@
 package pack.service;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +10,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import org.primefaces.model.StreamedContent;
-import static sun.security.krb5.Confounder.bytes;
 
 @ManagedBean(name = "productService")
 @ApplicationScoped
@@ -134,6 +126,7 @@ public class ServicioProducto extends Servicio implements Serializable {
                 productoTO.setIdProducto(idProducto);
                 productoTO.setNombreProducto(nombreProducto);
                 productoTO.setPrecioVenta(precioVenta);
+                productoTO.setCostoTotal(costoTotal);
                 productoTO.setImagen(imagen);
                 productoTO.setTipo(tipo);
                 productoTO.setDescripcion(descripcion);

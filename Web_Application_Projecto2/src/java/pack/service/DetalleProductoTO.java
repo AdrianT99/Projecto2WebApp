@@ -7,9 +7,9 @@ import java.io.Serializable;
 public class DetalleProductoTO implements Serializable{
     int idProducto;
     int cantidad;
-    int costoUnitario;
+    double costoUnitario;
     String descripcion;
-    int total;
+    double total;
     
     public DetalleProductoTO() {
     }
@@ -45,19 +45,19 @@ public class DetalleProductoTO implements Serializable{
         this.descripcion = descripcion;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public int getCostoUnitario() {
+    public double getCostoUnitario() {
         return costoUnitario;
     }
 
-    public void setCostoUnitario(int costoUnitario) {
+    public void setCostoUnitario(double costoUnitario) {
         this.costoUnitario = costoUnitario;
     }
     

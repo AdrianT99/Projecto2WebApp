@@ -153,6 +153,12 @@ public class AddRowView implements Serializable {
         }
         
     }
+    public void demeDetalles()
+    {
+        int idProducto = selectedDetalle.getIdProducto();
+        
+        setDetalleProducto(sd.listaDetalleProducto(idProducto));
+    }
 
     public List<DetalleProductoTO> getDetalleProducto() {
         return detalleProducto;
@@ -189,7 +195,7 @@ public class AddRowView implements Serializable {
 
         for (DetalleProductoTO selectedDetalle : this.detalleProducto) {
 
-            temp = selectedDetalle.getTotal();
+            temp = (int) selectedDetalle.getTotal();
             costoTotal += temp;
         }
         return costoTotal;

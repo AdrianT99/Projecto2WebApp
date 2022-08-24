@@ -220,7 +220,7 @@ public class InputNumberView implements Serializable {
     }
 
     public void calculoCostoTotal() {
-        this.total  = detalleProducto.getCantidad() * detalleProducto.getCostoUnitario();
+        this.total  = (int) (detalleProducto.getCantidad() * detalleProducto.getCostoUnitario());
         detalleProducto.setTotal(total);
         this.input6 = input4 * input5;
         this.input9 = input7 * input8;

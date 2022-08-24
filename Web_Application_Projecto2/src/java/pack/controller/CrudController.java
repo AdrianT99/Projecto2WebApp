@@ -12,17 +12,24 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
+import pack.service.ServicioDetalle;
 
 @ManagedBean(name = "crudView")
 @ViewScoped
 public class CrudController implements Serializable {
 
+    private List<ProductoTO> products = new ArrayList();
     private ProductoTO selectedProduct = new ProductoTO();
+    ServicioDetalle sd;
+    private ProductoTO productoEdit = new ProductoTO();
 
     @ManagedProperty("#{productService}")
     private ServicioProducto servicioProducto;
+    
+//    @ManagedProperty("#{servicioDetalle}")
+//    private List<DetalleProductoTO> detalleProductoTO;
 
-    private List<ProductoTO> products = new ArrayList();
+    
 
     public CrudController() {
     }
@@ -30,7 +37,24 @@ public class CrudController implements Serializable {
     @PostConstruct
     public void init() {
         this.products = servicioProducto.getProducts();
+//        this.detalleProductoTO = sd.listaDetalleProducto(selectedProduct.getIdProducto());
     }
+
+    public ServicioDetalle getSd() {
+        return sd;
+    }
+
+    public void setSd(ServicioDetalle sd) {
+        this.sd = sd;
+    }
+
+//    public List<DetalleProductoTO> getDetalleProductoTO() {
+//        return detalleProductoTO;
+//    }
+//
+//    public void setDetalleProductoTO(List<DetalleProductoTO> detalleProductoTO) {
+//        this.detalleProductoTO = detalleProductoTO;
+//    }
 
     public void openNew() {
         this.selectedProduct = new ProductoTO();
@@ -90,6 +114,24 @@ public class CrudController implements Serializable {
 
     public List<ProductoTO> getProducts() {
         return products;
+    }
+
+    public ProductoTO getProductoEdit() {
+        return productoEdit;
+    }
+
+    public void setProducts(List<ProductoTO> products) {
+        this.products = products;
+    }
+
+    public void setProductoEdit(ProductoTO productoEdit) {
+        this.productoEdit = productoEdit;
+    }
+
+    public void editarProducto()
+    {
+        DashboardController dc = new DashboardController();
+        dc.EditarProducto();
     }
 
 }
