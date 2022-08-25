@@ -8,13 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 
-/**
- *
- * @author adria
- */
+@ManagedBean(name = "detalleService")
+@ApplicationScoped
 public class ServicioDetalle extends Servicio implements Serializable{
     
+
     
     public void insertarDetalle(DetalleProductoTO detalleProductoTO) {
 
