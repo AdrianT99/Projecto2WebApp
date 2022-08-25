@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
@@ -19,7 +19,7 @@ import pack.service.ServicioDetalle;
 import pack.service.ServicioProducto;
 
 @ManagedBean(name = "CostosController")
-@ViewScoped
+@SessionScoped
 public class AddRowView implements Serializable {
     
     int costoTotal;

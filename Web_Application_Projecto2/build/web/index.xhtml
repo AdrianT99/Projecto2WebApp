@@ -84,8 +84,9 @@
                                                redisplay="true"              style="margin: auto;
                                                width: 85%;
                                                height: 30px;"/>
-                        <p:commandButton value="Ingresar" actionListener="#{loginController.ingresar()}" update="growl,messages"/>                                               
-                    </p:panelGrid> 
+                        <p:commandButton value="Ingresar" actionListener="#{loginController.ingresar()}" update="growl,messages"/>
+                        <p:commandButton value="Crear Cuenta" actionListener="#{UserWizardController.ingresarRegistro()}" update="growl,messages"/>
+                        </p:panelGrid> 
                 </div>
             </h:form>
     </h:body>

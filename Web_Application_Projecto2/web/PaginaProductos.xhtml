@@ -76,16 +76,6 @@
                             <p:resetInput target=":form:manage-product-content"/>
                         </p:commandButton>
 
-                        <p:commandButton value="Crear Cuenta" 
-                                         styleClass="ui-button-success" 
-                                         actionListener="#{UserWizardController.ingresarRegistro()}"
-                                         style="float: left;
-                                                margin: auto;
-                                                margin-top: 5px;
-                                                width: 200px;
-                                                height: 50px;">
-                        </p:commandButton>
-
                         </div>
                     </p:toolbarGroup>
                 </p:toolbar>
@@ -120,11 +110,9 @@
 
                         <p:panelGrid columns="2" layout="grid" style="border:0px none;background:none; text-align: center">
 
-                            <p:commandButton icon="pi pi-pencil" update=":form:manage-product-content"
-                                             oncomplete="PF('manageProductDialog').show()"
-                                             styleClass="edit-button rounded-button ui-button-success" process="@this">
-                                <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
-                                <p:resetInput target=":form:manage-product-content"/>
+                            <p:commandButton value ="Editar" icon="pi pi-shopping-cart"
+                                             styleClass="edit-button rounded-button ui-button-success" process="@this">                                
+                                <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct()}"/>
                             </p:commandButton>
 
                             <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
@@ -135,6 +123,13 @@
                     </p:column>
 
                 </p:dataTable>
+                
+                <p:dialog widgetVar="ConfirmarAgregar" showEffect="fade" width="300"
+                                  header="Editar">
+                    <p:commandButton value="Si" icon="pi pi-check" actionListener="#{crudView.saveProductsCart()}"
+                                     process="@this" update="form" oncomplete="PF('ConfirmarAgregar').hide()" />
+
+                </p:dialog>
 
                 <p:dialog header="Product Details" showEffect="fade" modal="true"
                           widgetVar="manageProductDialog" responsive="true">

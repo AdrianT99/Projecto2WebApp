@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import pack.service.ServicioProducto;
 
 @ManagedBean(name = "loginController")
 @SessionScoped
@@ -22,6 +23,8 @@ public class LoginController implements Serializable {
     }
 
     public void ingresar() {
+//        ServicioProducto servicioProducto = new ServicioProducto();
+//        servicioProducto.setCart().;
 
         ServicioCliente servicioCliente = new ServicioCliente();
         this.clienteTO = servicioCliente.demeCliente(user, pass);

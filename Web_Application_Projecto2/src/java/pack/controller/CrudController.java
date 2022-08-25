@@ -7,17 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
 
 @ManagedBean(name = "crudView")
-@ViewScoped
+@ApplicationScoped
 public class CrudController implements Serializable {
 
     private ProductoTO selectedProduct = new ProductoTO();
+    private ProductoTO productoEditable= getSelectedProduct();
 
     @ManagedProperty("#{productService}")
     private ServicioProducto servicioProducto;
@@ -79,6 +80,14 @@ public class CrudController implements Serializable {
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
         servicioProducto.sumaCostoTotal();
 
+    }
+
+    public ProductoTO getProductoEditable() {
+        return productoEditable;
+    }
+
+    public void setProductoEditable(ProductoTO productoEditable) {
+        this.productoEditable = productoEditable;
     }
 
     public ProductoTO getSelectedProduct() {
@@ -156,6 +165,7 @@ public class CrudController implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    
     
     
     

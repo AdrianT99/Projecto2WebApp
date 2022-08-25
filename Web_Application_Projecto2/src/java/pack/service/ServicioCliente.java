@@ -236,51 +236,6 @@ public class ServicioCliente extends Servicio implements Serializable {
         return maxCliente;
     }
 
-//    public ClienteTO buscarCliente(int cedulaParam) {
-//
-//        ClienteTO retorno = new ClienteTO();
-//        Connection conn = super.getConexion();
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//
-//        try {
-//
-//            ps = conn.prepareStatement("SELECT CEDULA, NOMBRE, DIRECCION FROM CLIENTE WHERE CEDULA = ?");
-//            ps.setInt(1, cedulaParam);
-//            rs = ps.executeQuery();
-//
-//            if (rs.next()) {
-//
-//                int cedula = rs.getInt("CEDULA");
-//                String nombre = rs.getString("NOMBRE");
-//                String direccion = rs.getString("DIRECCION");
-//                int telefono = rs.getInt("TELEFONO");
-//
-//                ClienteTO clienteTO = new ClienteTO();
-//                clienteTO.setCedulaCliente(cedula);
-//                clienteTO.setNombreCliente(nombre);
-//                clienteTO.setDireccion(direccion);
-//                clienteTO.setTelefono(telefono);
-//
-//                retorno = clienteTO;
-//            }
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        } finally {
-//            try {
-//                if (ps != null && !ps.isClosed()) {
-//                    ps.close();
-//                }
-//                if (rs != null && !rs.isClosed()) {
-//                    rs.close();
-//                }
-//
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//        return retorno;
-//    }
     public void eliminarCliente(int cedulaParam) {
 
         Connection conn = super.getConexion();

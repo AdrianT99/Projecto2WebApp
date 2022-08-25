@@ -28,13 +28,13 @@ public class editarProductoController {
     @ManagedProperty("#{crudView}")
     private CrudController crudView;
 
-    @ManagedProperty("#{detalleProducto}")
+    @ManagedProperty("#{Producto}")
     private ProductoTO productoTO;
     
     
     @PostConstruct
     public void init() {
-        this.productoTO = crudView.getSelectedProduct();
+        this.productoTO = crudView.getProductoEditable();
 
     }
     public editarProductoController() {

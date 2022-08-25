@@ -95,6 +95,11 @@ ServicioDashboard dash = new ServicioDashboard();
         
     }
     
+    public void CatalogoCliente(){
+        this.redireccionar("/faces/PaginaProductosCX.xhtml");
+        
+    }
+    
      public void redireccionar(String ruta) {
 
         HttpServletRequest request;

@@ -156,20 +156,23 @@ public class CheckoutController implements Serializable {
         this.ventasTO = ventasTO;
     }
 
-//    public void Salir() {
-//
-//        loginController.setClienteTO(null);
-//        loginController.setPass(null);
-//        loginController.setUser(null);
-//
-//        this.redireccionar("/faces/index.xhtml");
-//    }
-//
-//    public void ingresarCheckOut() {
-//
-//        this.redireccionar("/faces/Checkout.xhtml");
-//
-//    }
+    public void Salir() {
+
+        loginController.setClienteTO(null);
+        loginController.setPass(null);
+        loginController.setUser(null);
+        
+        
+
+        this.redireccionar("/faces/index.xhtml");
+        productoTO.clear();
+    }
+
+    public void ingresarCheckOut() {
+
+        this.redireccionar("/faces/Checkout.xhtml");
+
+    }
 
     public void redireccionar(String ruta) {
 
@@ -216,7 +219,10 @@ public class CheckoutController implements Serializable {
 
         sv.insertarVenta(ventasTO);
         insertarProductosCarrito();
-        detalleVenta.clear();
+        productoTO.clear();
+        
+        DashboardController dc = new DashboardController();
+        dc.CatalogoCliente();
 
 
     }

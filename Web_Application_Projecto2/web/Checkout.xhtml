@@ -5,8 +5,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        
-         <title>CheckOut</title>
+
+        <title>CheckOut</title>
         <p:growl id="message" showDetail="true"/>
 
 
@@ -15,118 +15,197 @@
 
 
 
-        <style type="text/css">
+        <style>
+            #FondoCheckOut {
+                width: 80%;
+                height: 80vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-size: 300% 300%;
+                background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
+                -webkit-animation: AnimateBG 10s ease infinite;
+                animation: AnimateBG 10s ease infinite;
+            }
 
-            html,
-            body { height: 100%;
+            @-webkit-keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            @keyframes AnimateBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
             }
 
 
-            Head{
-
-                margin: 50px;
-            }
-
-            td.centeredColumnContent{
+            #infoUsuarioCarrito {
+                position: relative;
+                margin-top: 4%;
+                width: 100%;
+                height: 80vh;
+                align-items: center;
+                justify-content: center;
+                background-color: #20202A;
+                left: 50%;
+                transform: translateX(-45%);
                 text-align: center;
+                float: left;
             }
+
+            #botonesCalculos
+            {
+                position: relative;
+                float: left;
+            }
+
 
         </style>
     </h:head>
 
-    <body class="surface-section px-4 py-5 md:px-6 lg:px-8">
-
+    <body id="FondoCheckOut" class="surface-section px-4 py-5 md:px-6 lg:px-8">
+        <div id="general1">
             <h:form id="form" class="grid ">
-                <div>
+                <div id="infoUsuarioCarrito">
 
-                    <div class="col justify-content-start">
 
-                        <label  class="text-3xl font-medium text-900 mb-3 ">Checkout</label>
-                    </div>
-                    <div class=" justify-content-end">
-                        <p:commandButton class="col" value="Abortar" action="#{confirmView.confirm}" update="message" styleClass=" ui-button-danger" icon="pi pi-sign-out">
-                            <p:confirm header="Confirmation" message="Terminar Sesion?" icon="pi pi-info-circle"/>
-                        </p:commandButton>
-                    </div>
+
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <div class="col justify-content-start" style="
+                                        font-size: 30px;
+                                        margin-left: 500px;
+                                        margin-top: -25%;">
+                                    Realizar Pago
+                            </div>
+                        </p:toolbarGroup>
+
+                        <p:toolbarGroup>
+                            <div class="grid" style="margin-top: -140px;
+                                 margin-left:  -170px;">
+                                <div class=" flex justify-content-end bg-blue-100 border-round"
+                                     style="width:5rem;height:2.5rem;margin-top: 140px;
+                                     margin-left:  -750px;">
+                                    <i class="col pi pi-users text-blue-500 text-xl"/>
+                                </div>
+
+                                <div class="font-medium text-3xl text-900 mb-3" style="margin-top: 140px;
+                                     margin-left:  -10px;">Informacion del Usuario</div>
+
+                            </div>
+                        </p:toolbarGroup>
+
+                        <p:toolbarGroup>
+                            <div class="flex justify-content-between mb-3" style="margin-left: -450px;">
+                                <div class="p-3 grid nested-grid">
+                                    <div class="grid">
+                                        <div class="col-12" style="margin-left: -650px;
+                                             margin-top: 150px;">
+                                            <label for="Nombre" class="block text-900 font-medium mb-2">Correo:</label>
+                                            <p:outputLabel value="#{loginController.user}"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+
+                    <p:dataTable  scrollable="true" scrollHeight="175" var="carrito" value="#{productService.cart}">
+
+                        <f:facet name="header">
+                            <div class="products-table-header">
+                                <span style="font-weight: bold">CARRITO</span>                     
+                            </div>
+                        </f:facet>
+
+                        <p:column styleClass="centeredColumnContent" headerText="Producto">
+                            <p:graphicImage class="m-5" width="200" height="150"  value="#{carrito.imagen}" stream="false"/>
+                        </p:column>
+
+                        <p:column styleClass="centeredColumnContent" headerText="Nombre">
+                            <h:outputText value="#{carrito.nombreProducto}"/>
+                        </p:column>
+
+                        <p:column styleClass="centeredColumnContent" headerText="Descripcion">
+                            <h:outputText value="#{carrito.descripcion}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Tipo" >
+                        <h:outputText value="#{carrito.tipo}"/>
+                    </p:column>
+
+                        <p:column styleClass="centeredColumnContent" headerText="Precio">
+                            <h:outputText value="#{carrito.precioVenta}"/>
+                        </p:column>
+
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column colspan="4" style="text-align: right;" footerText="Totals:"/>
+                                <p:column>
+                                    <f:facet name="footer">
+                                        <h:outputText value="#{productService.sumaCostoTotal()}">
+                                            <f:convertNumber type="currency" currencySymbol="$"/>
+                                        </h:outputText>
+                                    </f:facet>
+                                </p:column>
+
+                            </p:row>
+                        </p:columnGroup>
+                    </p:dataTable>
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <div id="botones" style="float: left;
+                                 margin: auto;
+                                 width: 100%;
+                                 height: 60px;">
+                                <p:commandButton value="Pagar" process="@this" update="form" 
+                                                 action="#{CheckoutController.insertarVenta()}" 
+                                                 style="float: left;
+                                                 margin: auto;
+                                                 margin-top: 5px;
+                                                 margin-left: 15px;
+                                                 width: 200px;
+                                                 height: 50px;"/>
+
+                                <p:commandButton class="col" value="Cerrar Sesion" action="#{confirmView.confirm}" update="message" 
+                                                 styleClass=" ui-button-danger" icon="pi pi-sign-out"
+                                                 style="float: left;
+                                                 margin: auto;
+                                                 margin-top: 5px;
+                                                 margin-left: 730px;
+                                                 width: 200px;
+                                                 height: 50px;">
+                                    <p:confirm header="Confirmation" message="Terminar Sesion?" icon="pi pi-info-circle"/>
+                                </p:commandButton>
+
+                            </div>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
                         <p:commandButton value="No" styleClass="ui-confirmdialog-no ui-button-flat"/>
                         <p:commandButton value="Yes" actionListener="#{CheckoutController.Salir()}" styleClass="ui-confirmdialog-yes" />
                     </p:confirmDialog>
-
                 </div>
-                <div class="font-medium text-500 mb-3">Llenar los datos abajo para completar la compra.</div>
-
-
-
-
-                    <!--<div class="surface-card shadow-2 p-3 border-round">-->
-                    <div class="grid">
-                        <div class=" flex justify-content-end bg-blue-100 border-round"
-                             style="width:2.5rem;height:2.5rem">
-                            <i class="col pi pi-users text-blue-500 text-xl"/>
-                        </div>
-                        <div class="justify-content-center">
-
-                            <span class="col block text-500 font-medium mb-3">Datos de Usuario</span>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-content-between mb-3">
-                        <div class="p-3 grid nested-grid">
-                            <div class="grid">
-                                <div class="col-12">
-                                    <label for="Nombre" class="block text-900 font-medium mb-2">Nombre</label>
-                                    <p:outputLabel value="#{loginController.user}"/>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!--</div>-->
-
-
-
-                            <div class="font-medium text-3xl text-900 mb-3">Informacion</div>
-
-                            <p:dataTable  scrollable="true" scrollHeight="175" var="carrito" value="#{productService.cart}">
-
-                                <p:column styleClass="centeredColumnContent" headerText="Producto/imagen">
-                                    <h:outputText value="#{carrito.imagen}"/>
-                                </p:column>
-                                
-                                <p:column styleClass="centeredColumnContent" headerText="Nombre">
-                                    <h:outputText value="#{carrito.nombreProducto}"/>
-                                </p:column>
-
-                                <p:column styleClass="centeredColumnContent" headerText="Descripcion">
-                                    <h:outputText value="#{carrito.descripcion}"/>
-                                </p:column>
-
-                                <p:column styleClass="centeredColumnContent" headerText="Precio">
-                                    <h:outputText value="#{carrito.precioVenta}"/>
-                                </p:column>
-                                
-                                <p:columnGroup type="footer">
-                <p:row>
-                    <p:column colspan="3" style="text-align:right" footerText="Totals:"/>
-                    <p:column>
-                        <f:facet name="footer">
-                            <h:outputText value="#{productService.sumaCostoTotal()}">
-                              <f:convertNumber type="currency" currencySymbol="$"/>
-                            </h:outputText>
-                        </f:facet>
-                    </p:column>
-                    
-                </p:row>
-            </p:columnGroup>
-                            </p:dataTable>
-                            
-                    <p:commandButton value="Pagar" process="@this" update="form" 
-                                     action="#{CheckoutController.insertarVenta()}"/>
 
 
             </h:form>
+        </div>
     </body>
 </html>
