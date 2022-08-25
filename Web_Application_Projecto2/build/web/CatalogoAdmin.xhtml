@@ -6,42 +6,55 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Crud</title>
+        
+        <style>
+              #FondoProductos2 {
+                width: 95%;
+                height: 90vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-size: 300% 300%;
+                background-image: linear-gradient(-45deg, #2A2A56 0%, #21212A 15%, #292949 61%, #21212A 100%);
+                -webkit-animation: AnimateBG 10s ease infinite;
+                animation: AnimateBG 10s ease infinite;
+            }
+
+            @-webkit-keyframes AnimateBG {
+              0% {
+                background-position: 0% 50%;
+              }
+              50% {
+                background-position: 100% 50%;
+              }
+              100% {
+                background-position: 0% 50%;
+              }
+            }
+
+            @keyframes AnimateBG {
+              0% {
+                background-position: 0% 50%;
+              }
+              50% {
+                background-position: 100% 50%;
+              }
+              100% {
+                background-position: 0% 50%;
+              }
+            }
+            
+        </style>
+        
     </h:head>
-    <h:body>
+    
+ 
+    <h:body id="FondoProductos2">
         <h:form id="form">
             <div class="card crud-demo">
                 <p:growl id="messages" showDetail="true"/>
-                <p:toolbar>
-                    <p:toolbarGroup>
-                        <div id="botones" style="float: left;
-                             margin: auto;
-                             width: 100%;
-                             height: 60px;">
-                            <p:commandButton value="New" icon="pi pi-plus" actionListener="#{crudView.openNew}"
-                                             update=":form" oncomplete="PF('manageProductDialog').show()"
-                                             styleClass="ui-button-success"
-                                             style="float: left;
-                                             margin: auto;
-                                             margin-top: 5px;
-                                             width: 200px;
-                                             height: 50px;">
-                                <p:resetInput target=":form:manage-product-content"/>
-                            </p:commandButton>
-
-                            <p:commandButton value="Crear Cuenta" 
-                                             styleClass="ui-button-success" 
-                                             actionListener="#{UserWizardController.ingresarRegistro()}"
-                                             style="float: left;
-                                             margin: auto;
-                                             margin-top: 5px;
-                                             width: 200px;
-                                             height: 50px;">
-                            </p:commandButton>
-
-                        </div>
-                    </p:toolbarGroup>
-                </p:toolbar>
-                <p:dataTable id="dt-products" widgetVar="dtProducts" var="product" value="#{productService.products2}"
+                
+                <p:dataTable  style="padding-left:50px;" id="dt-products" widgetVar="dtProducts" var="product" value="#{productService.products2}"
                              reflow="true" styleClass="products-table"
                              rowKey="#{product.idProducto}" paginator="true"
                              rows="10" rowSelectMode="add" paginatorPosition="bottom">
@@ -90,10 +103,7 @@
                                 <p:resetInput target=":form:manage-product-content"/>
                             </p:commandButton>
 
-                            <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                             oncomplete="PF('deleteProductDialog').show()">
-                                <f:setPropertyActionListener value="#{product}" target="#{crudView.selectedProduct}"/>
-                            </p:commandButton>
+                          
                         </p:panelGrid>
                     </p:column>
 

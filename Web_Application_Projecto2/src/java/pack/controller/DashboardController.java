@@ -70,7 +70,7 @@ ServicioDashboard dash = new ServicioDashboard();
     }
     
     public void Catalogo(){
-        this.redireccionar("/faces/PaginaProductos.xhtml");
+        this.redireccionar("/faces/PaginaProductos2.xhtml");
     }
     
     public void Clientes(){

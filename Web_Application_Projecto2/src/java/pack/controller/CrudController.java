@@ -48,10 +48,11 @@ public class CrudController implements Serializable {
 
     public void saveProduct() {
         if (this.selectedProduct.getIdProducto() == 0) {
-            servicioProducto.insertarProducto(selectedProduct);
+          
             //this.products.add(this.);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Product Added"));
         } else {
+            servicioProducto.actualizarProducto(selectedProduct);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Product Updated"));
         }
         this.init();

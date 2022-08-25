@@ -75,6 +75,11 @@
 
                             </p:commandButton>
 
+                            <p:commandButton class="" action="#{confirmView.confirm}"  styleClass="rounded-button ui-button-danger" icon="pi pi-power-off">
+                                <p:confirm header="Confirmation" message="Terminar Sesion?" icon="pi pi-info-circle"/>
+                            </p:commandButton>
+
+
                         </div>
                     </p:toolbarGroup>
                 </p:toolbar>
@@ -88,21 +93,21 @@
                         </div>
                     </f:facet>
 
-                   
-                
-                    
+
+
+
                     <p:column headerText="Producto" >
                         <p:graphicImage class="m-5" width="200" height="150"  value="#{product.imagen}" stream="false"/>
                     </p:column>
-                    
+
                     <p:column headerText="Nombre" >
                         <h:outputText value="#{product.nombreProducto}"/>
                     </p:column>
-                    
+
                     <p:column styleClass="centeredColumnContent" headerText="Descripcion">
                         <h:outputText value="#{product.descripcion}"/>
                     </p:column>
-                    
+
                     <p:column headerText="Tipo" sortBy="#{product.tipo}" filterBy="#{product.tipo}"  filterMatchMode="contains">
                         <h:outputText value="#{product.tipo}"/>
                     </p:column>
@@ -128,11 +133,16 @@
                 </p:dataTable>
 
                 <p:dialog widgetVar="ConfirmarAgregar" showEffect="fade" width="300"
-                                  header="Desea Agregar al Carrito">
+                          header="Desea Agregar al Carrito">
                     <p:commandButton value="Si" icon="pi pi-check" actionListener="#{crudView.saveProductsCart()}"
                                      process="@this" update="form" oncomplete="PF('ConfirmarAgregar').hide()" />
 
                 </p:dialog>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:commandButton value="No" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Yes" actionListener="#{DashboardController.Salir()}" styleClass="ui-confirmdialog-yes" />
+                </p:confirmDialog>
 
 
 

@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
@@ -19,8 +20,8 @@ import pack.service.ServicioDetalle;
 import pack.service.ServicioProducto;
 
 @ManagedBean(name = "CostosController")
-@SessionScoped
-public class AddRowView implements Serializable {
+@ViewScoped
+public class CostosController implements Serializable {
     
     int costoTotal;
     int margen;
@@ -154,15 +155,22 @@ public class AddRowView implements Serializable {
         productoTO.setTipo(tipo);
         productoTO.setDescripcion(descripcion);
         productoTO.setImagen(imagen);
+        productoTO.setEstado(1);
         setProductoTO(productoTO);
         
         sp.insertarProducto(productoTO);
         insertarDetalles();
         detalleProducto.clear();
+        this.nombreProducto = "";
+        this.tipo = "";
+        this.margen = 0;
+        this.precioFinal = 0;
+        this.costoTotal = 0;
+        this.precioSugerido = 0;
+        
     }
     
-    public void insertarDetalles()
-    {
+    public void insertarDetalles() {
         int idPro=sp.demeIdProducto();
         for(DetalleProductoTO selectedDetalle : detalleProducto)
         {
